@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/myordbatis-3-mapper.dtd" >
+<mapper namespace="com.tuniu.ord.persistence.ManualContractMapper" >
+  <resultMap id="BaseResultMap" type="com.tuniu.ord.domain.ManualContract" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="manual_order_id" property="manualOrderId" jdbcType="INTEGER" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="file_suffix" property="fileSuffix" jdbcType="VARCHAR" />
+    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
+    <result column="add_uid" property="addUid" jdbcType="INTEGER" />
+    <result column="add_uname" property="addUname" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_uid" property="updateUid" jdbcType="INTEGER" />
+    <result column="update_uname" property="updateUname" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="del_flag" property="delFlag" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, manual_order_id, file_name, file_suffix, file_path, add_uid, add_uname, add_time, update_uid, 
+    update_uname, update_time, del_flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from manual_contract
+    where id = #{id,jdbcType=INTEGER}
+    and del_flag = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    update manual_contract set del_flag = 1
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertSelective" parameterType="com.tuniu.ord.domain.ManualContract" useGeneratedKeys="true" keyProperty="id" >
+    insert into manual_contract
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="manualOrderId != null" >
+        manual_order_id,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="fileSuffix != null" >
+        file_suffix,
+      </if>
+      <if test="filePath != null" >
+        file_path,
+      </if>
+      <if test="addUid != null" >
+        add_uid,
+      </if>
+      <if test="addUname != null" >
+        add_uname,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateUid != null" >
+        update_uid,
+      </if>
+      <if test="updateUname != null" >
+        update_uname,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="manualOrderId != null" >
+        #{manualOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSuffix != null" >
+        #{fileSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="addUid != null" >
+        #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuniu.ord.domain.ManualContract" >
+    update manual_contract
+    <set >
+      <if test="manualOrderId != null" >
+        manual_order_id = #{manualOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSuffix != null" >
+        file_suffix = #{fileSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        file_path = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="addUid != null" >
+        add_uid = #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        add_uname = #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        update_uid = #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        update_uname = #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByManualOrderId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  SELECT  <include refid="Base_Column_List" /> 
+  FROM manual_contract WHERE manual_order_id = #{manualOrderId,jdbcType=INTEGER}
+  and del_flag = 0
+  </select>
+</mapper>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.2.xsd ">
+
+	<aop:aspectj-autoproxy />
+
+	<context:component-scan base-package="com.tuniu.ord..*" />
+
+	<context:component-scan base-package="com.tuniu.ngsp.ddg" />
+
+	<context:annotation-config />
+
+	<bean class="com.tuniu.ngsp.ddg.configurer.DiamondPropertyConfigurer">
+		<property name="ignoreInvalidKeys" value="true" />
+		<property name="placeholderPrefix" value="@{" />
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+	</bean>
+
+	<!-- 途牛主库 -->
+	<bean id="DOTA_ORD_TUNIU-MASTER-DB" class="com.tuniu.ngsp.ddg.db.C3P0DataSourceProxy"
+		destroy-method="close">
+		<property name="driverClass" value="@{tuniu_master.driverClass}" />
+		<!-- 连接池信息 -->
+		<property name="minPoolSize" value="@{tuniu_master.minPoolSize}" />
+		<property name="maxPoolSize" value="@{tuniu_master.maxPoolSize}" />
+		<property name="initialPoolSize" value="@{tuniu_master.initialPoolSize}" />
+		<property name="maxStatements" value="@{tuniu_master.maxStatements}" />
+		<property name="maxIdleTime" value="@{tuniu_master.maxIdleTime}" />
+		<property name="idleConnectionTestPeriod" value="@{tuniu_master.idleConnectionTestPeriod}" />
+		<property name="acquireRetryAttempts" value="@{tuniu_master.acquireRetryAttempts}" />
+		<property name="acquireIncrement" value="@{tuniu_master.acquireIncrement}" />
+		<property name="breakAfterAcquireFailure" value="@{tuniu_master.breakAfterAcquireFailure}" />
+		<property name="testConnectionOnCheckout" value="@{tuniu_master.testConnectionOnCheckout}" />
+	</bean>
+
+	<!-- 途牛从库 -->
+	<bean id="DOTA_ORD_TUNIU-SLAVE-DB" class="com.tuniu.ngsp.ddg.db.C3P0DataSourceProxy"
+		destroy-method="close">
+		<property name="driverClass" value="@{tuniu_slave.driverClass}" />
+		<!-- 连接池信息 -->
+		<property name="minPoolSize" value="@{tuniu_slave.minPoolSize}" />
+		<property name="maxPoolSize" value="@{tuniu_slave.maxPoolSize}" />
+		<property name="initialPoolSize" value="@{tuniu_slave.initialPoolSize}" />
+		<property name="maxStatements" value="@{tuniu_slave.maxStatements}" />
+		<property name="maxIdleTime" value="@{tuniu_slave.maxIdleTime}" />
+		<property name="idleConnectionTestPeriod" value="@{tuniu_slave.idleConnectionTestPeriod}" />
+		<property name="acquireRetryAttempts" value="@{tuniu_slave.acquireRetryAttempts}" />
+		<property name="acquireIncrement" value="@{tuniu_slave.acquireIncrement}" />
+		<property name="breakAfterAcquireFailure" value="@{tuniu_slave.breakAfterAcquireFailure}" />
+		<property name="testConnectionOnCheckout" value="@{tuniu_slave.testConnectionOnCheckout}" />
+	</bean>
+
+	<!-- 五洲行主库 -->
+	<bean id="DOTA_ORD_WZX-MASTER-DB" class="com.tuniu.ngsp.ddg.db.C3P0DataSourceProxy"
+		destroy-method="close">
+		<property name="driverClass" value="@{wzx_master.driverClass}" />
+		<!-- 连接池信息 -->
+		<property name="minPoolSize" value="@{wzx_master.minPoolSize}" />
+		<property name="maxPoolSize" value="@{wzx_master.maxPoolSize}" />
+		<property name="initialPoolSize" value="@{wzx_master.initialPoolSize}" />
+		<property name="maxStatements" value="@{wzx_master.maxStatements}" />
+		<property name="maxIdleTime" value="@{wzx_master.maxIdleTime}" />
+		<property name="idleConnectionTestPeriod" value="@{wzx_master.idleConnectionTestPeriod}" />
+		<property name="acquireRetryAttempts" value="@{wzx_master.acquireRetryAttempts}" />
+		<property name="acquireIncrement" value="@{wzx_master.acquireIncrement}" />
+		<property name="breakAfterAcquireFailure" value="@{wzx_master.breakAfterAcquireFailure}" />
+		<property name="testConnectionOnCheckout" value="@{wzx_master.testConnectionOnCheckout}" />
+	</bean>
+
+	<!-- 五洲行从库 -->
+	<bean id="DOTA_ORD_WZX-SLAVE-DB" class="com.tuniu.ngsp.ddg.db.C3P0DataSourceProxy"
+		destroy-method="close">
+		<property name="driverClass" value="@{wzx_slave.driverClass}" />
+		<!-- 连接池信息 -->
+		<property name="minPoolSize" value="@{wzx_slave.minPoolSize}" />
+		<property name="maxPoolSize" value="@{wzx_slave.maxPoolSize}" />
+		<property name="initialPoolSize" value="@{wzx_slave.initialPoolSize}" />
+		<property name="maxStatements" value="@{wzx_slave.maxStatements}" />
+		<property name="maxIdleTime" value="@{wzx_slave.maxIdleTime}" />
+		<property name="idleConnectionTestPeriod" value="@{wzx_slave.idleConnectionTestPeriod}" />
+		<property name="acquireRetryAttempts" value="@{wzx_slave.acquireRetryAttempts}" />
+		<property name="acquireIncrement" value="@{wzx_slave.acquireIncrement}" />
+		<property name="breakAfterAcquireFailure" value="@{wzx_slave.breakAfterAcquireFailure}" />
+		<property name="testConnectionOnCheckout" value="@{wzx_slave.testConnectionOnCheckout}" />
+	</bean>
+
+	<bean id="dynamicRoutingDataSources" class="com.tuniu.ord.core.datasource.DynamicRoutingDataSources">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry key="DOTA_ORD_TUNIU-MASTER-DB" value-ref="DOTA_ORD_TUNIU-MASTER-DB" />
+				<entry key="DOTA_ORD_TUNIU-SLAVE-DB" value-ref="DOTA_ORD_TUNIU-SLAVE-DB" />
+				<entry key="DOTA_ORD_WZX-MASTER-DB" value-ref="DOTA_ORD_WZX-MASTER-DB" />
+				<entry key="DOTA_ORD_WZX-SLAVE-DB" value-ref="DOTA_ORD_WZX-SLAVE-DB" />
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="DOTA_ORD_TUNIU-MASTER-DB" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dynamicRoutingDataSources" />
+	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="count*" read-only="true" />
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="query*" read-only="true" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="create*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="modify*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+    <!-- 开启事务控制的注解支持 -->  
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    
+	<bean id="dataSourceAdvice" class="com.tuniu.ord.core.datasource.DataSourceAdvice" />
+
+	<aop:config>
+		<aop:pointcut id="servicePointCut"
+			expression="(execution(public * com.tuniu.ord..*ServiceImpl.*(..))) or (execution(public * com.tuniu.ord..*ComponentImpl.*(..))) " />
+		<aop:advisor advice-ref="dataSourceAdvice" pointcut-ref="servicePointCut"
+			order="3" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePointCut"
+			order="10" />
+	</aop:config>
+
+
+	<!-- Spring集成Mybatis -->
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dynamicRoutingDataSources" />
+		<property name="configLocation" value="classpath:config/mybatis/mybatis-config.xml" />
+	</bean>
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactoryBean" />
+	</bean>
+
+	<!-- scan for mappers and let them be autowired -->
+	<bean id="ordMapperScannerConfigurer"
+		class="com.tuniu.nfbird.core.db.mybatis.ConfigurableMapperScanner">
+		<property name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
+		<property name="basePackage" value="com.tuniu.ord.persistence" />
+	</bean>
+
+	<!-- Spring容器应用上下文代理工具类 -->
+	<bean id="applicationContextProxy" class="com.tuniu.ord.core.init.ApplicationContextProxy" />
+
+	<mvc:annotation-driven />
+
+	<!-- 登陆成功之后tenantId拦截 -->
+	<bean id="dataSourceInterceptor" class="com.tuniu.ord.core.interceptor.DataSourceInterceptor">
+		<property name="uncheckUrls">
+			<list>
+				<value>/ord/em-task/exec</value>
+				<value>/ord/rest/manual-order/tourist/upload</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 登陆成功之后uid和nickname拦截 -->
+	<bean id="userSessionInterceptor" class="com.tuniu.ord.core.interceptor.UserSessionInterceptor">
+		<property name="uncheckUrls">
+			<list>
+				<value>/ord/em-task/exec</value>
+				<value>/ord/rest/manual-order/tourist/upload</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 参数拦截 -->
+	<bean id="parametersInterceptor" class="com.tuniu.ord.core.interceptor.ParametersInterceptor">
+		<property name="uncheckUrls">
+			<list>
+				<value>/ord/em-task/exec</value>
+				<value>/ord/rest/manual-order/tourist/upload</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="dataSourceInterceptor" />
+				<ref bean="userSessionInterceptor" />
+				<ref bean="parametersInterceptor" />
+			</list>
+		</property>
+		<!-- order越小优先级越高，Springmvc只会取优先级最高的handlerMapping处理请求 -->
+		<property name="order" value="-1" />
+	</bean>
+	
+	<!-- SpringMVC上传文件时,需配置MultipartResolver处理器 -->
+     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+         <!-- 指定所上传文件的总大小不能超过800KB......注意maxUploadSize属性的限制不是针对单个文件,而是所有文件的容量之和 -->
+         <property name="maxUploadSize" value="800000"/>
+     </bean>
+
+	<bean id="exceptionResolver" class="com.tuniu.ord.core.resolver.ExceptionResolver" />
+
+	<!-- 日志切面 -->
+	<bean id="log" class="com.tuniu.operation.framework.base.aspect.AspectLog"></bean>
+
+	<import resource="init-context.xml" />
+
+	<import resource="tspclient.xml" />
+
+	<import resource="pos-client.xml" />
+
+	<import resource="quartz-context.xml" />
+
+	<import resource="order-num.xml" />
+
+	<import resource="proxy.xml" />
+</beans>

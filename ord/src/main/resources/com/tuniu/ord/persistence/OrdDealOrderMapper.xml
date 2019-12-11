@@ -1,0 +1,893 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuniu.ord.persistence.OrdDealOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.tuniu.ord.domain.OrdDealOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="first_dest_group_id" property="firstDestGroupId" jdbcType="INTEGER" />
+    <result column="dest_category_id" property="destCategoryId" jdbcType="INTEGER" />
+    <result column="dest_category_name" property="destCategoryName" jdbcType="VARCHAR" />
+    <result column="first_dest_group_name" property="firstDestGroupName" jdbcType="VARCHAR" />
+    <result column="sec_dest_group_id" property="secDestGroupId" jdbcType="INTEGER" />
+    <result column="sec_dest_group_name" property="secDestGroupName" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="INTEGER" />
+    <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+    <result column="depart_date" property="departDate" jdbcType="TIMESTAMP" />
+    <result column="closing_date" property="closingDate" jdbcType="TIMESTAMP" />
+    <result column="distributor_id" property="distributorId" jdbcType="VARCHAR" />
+    <result column="status_code" property="statusCode" jdbcType="VARCHAR" />
+    <result column="customer_staff_id" property="customerStaffId" jdbcType="INTEGER" />
+    <result column="customer_staff_name" property="customerStaffName" jdbcType="VARCHAR" />
+    <result column="customer_manager_id" property="customerManagerId" jdbcType="INTEGER" />
+    <result column="customer_manager_name" property="customerManagerName" jdbcType="VARCHAR" />
+    <result column="product_staff_id" property="productStaffId" jdbcType="INTEGER" />
+    <result column="product_staff_name" property="productStaffName" jdbcType="VARCHAR" />
+    <result column="product_manager_id" property="productManagerId" jdbcType="INTEGER" />
+    <result column="product_manager_name" property="productManagerName" jdbcType="VARCHAR" />
+    <result column="operation_staff_id" property="operationStaffId" jdbcType="INTEGER" />
+    <result column="operation_staff_name" property="operationStaffName" jdbcType="VARCHAR" />
+    <result column="operation_manager_id" property="operationManagerId" jdbcType="INTEGER" />
+    <result column="operation_manager_name" property="operationManagerName" jdbcType="VARCHAR" />
+    <result column="add_uid" property="addUid" jdbcType="INTEGER" />
+    <result column="add_uname" property="addUname" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_uid" property="updateUid" jdbcType="INTEGER" />
+    <result column="update_uname" property="updateUname" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="del_flag" property="delFlag" jdbcType="INTEGER" />
+    <result column="ext_batch_id" property="extBatchId" jdbcType="INTEGER" />
+    <result column="occupy_batch_id" property="occupyBatchId" jdbcType="INTEGER" />
+    <result column="out_library_id" property="outLibraryId" jdbcType="INTEGER" />
+    <result column="ext_dbatch_id" property="extDbatchId" jdbcType="INTEGER" />
+    <result column="departure_city_code" property="departureCityCode" jdbcType="INTEGER" />
+    <result column="departure_city_name" property="departureCityName" jdbcType="VARCHAR" />
+    <result column="continent_code" property="continentCode" jdbcType="INTEGER" />
+    <result column="continent_name" property="continentName" jdbcType="VARCHAR" />
+    <result column="country_code" property="countryCode" jdbcType="INTEGER" />
+    <result column="country_name" property="countryName" jdbcType="VARCHAR" />
+    <result column="province_code" property="provinceCode" jdbcType="INTEGER" />
+    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+    <result column="city_code" property="cityCode" jdbcType="INTEGER" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="district_code" property="districtCode" jdbcType="INTEGER" />
+    <result column="district_name" property="districtName" jdbcType="VARCHAR" />
+    <result column="product_category" property="productCategory" jdbcType="INTEGER" />
+    <result column="product_category_name" property="productCategoryName" jdbcType="VARCHAR" />
+    <result column="product_sub_category" property="productSubCategory" jdbcType="INTEGER" />
+    <result column="product_sub_category_name" property="productSubCategoryName" jdbcType="VARCHAR" />
+    <result column="dest_id" property="destId" jdbcType="INTEGER" />
+    <result column="dest_name" property="destName" jdbcType="VARCHAR" />
+    <result column="product_line_id" property="productLineId" jdbcType="INTEGER" />
+    <result column="deal_order_type" property="dealOrderType" jdbcType="INTEGER" />
+    <result column="day_num" property="dayNum" jdbcType="INTEGER" />
+    <result column="back_date" property="backDate" jdbcType="DATE" />
+    <result column="deal_order_num" property="dealOrderNum" jdbcType="INTEGER" />
+    <result column="adult_price" property="adultPrice" jdbcType="DECIMAL" />
+    <result column="child_price" property="childPrice" jdbcType="DECIMAL" />
+    <result column="sell_channel_code" property="sellChannelCode" jdbcType="VARCHAR" />
+    <result column="occupy_num" property="occupyNum" jdbcType="INTEGER" />
+    <result column="confirm_num" property="confirmNum" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, order_id, product_id, first_dest_group_id, dest_category_id, dest_category_name, 
+    first_dest_group_name, sec_dest_group_id, sec_dest_group_name, product_name, group_id, 
+    group_name, depart_date, closing_date, distributor_id, status_code, customer_staff_id, 
+    customer_staff_name, customer_manager_id, customer_manager_name, product_staff_id, 
+    product_staff_name, product_manager_id, product_manager_name, operation_staff_id, 
+    operation_staff_name, operation_manager_id, operation_manager_name, add_uid, add_uname, 
+    add_time, update_uid, update_uname, update_time, del_flag, ext_batch_id, ext_dbatch_id, occupy_batch_id,out_library_id,
+    departure_city_code,departure_city_name,continent_code,continent_name,country_code,country_name,province_code,
+    province_name,city_code,city_name,district_code,district_name,product_category,product_category_name,product_sub_category,
+    product_sub_category_name,dest_id,dest_name,product_line_id,deal_order_type,day_num,back_date,deal_order_num,
+    adult_price,child_price,sell_channel_code,occupy_num,confirm_num
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ord_deal_order
+    where del_flag = 0 and id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="getMaxOrdId" resultType="java.lang.Integer">
+    select 
+    max(order_id)
+    from ord_deal_order
+  </select>
+  
+  <!-- 根据订单号查询订单信息 -->
+  <select id="selectByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ord_deal_order
+    where order_id = #{orderId,jdbcType=INTEGER} and del_flag=0
+  </select>
+  
+  <!-- 根据A资源入库批次号查询D类订单、产品ID和产品名称以及责任人 -->
+   <select id="getOrdDealOrderByRoundId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ord_deal_order
+    where ext_batch_id=#{roundId,jdbcType=INTEGER} and del_flag=0 order by id desc limit 1
+  </select>
+  
+ <!--   根据订单搜索条件查询订单 -->
+  <select id="selectOrderListByPage" resultMap="BaseResultMap" parameterType="com.tuniu.ord.vo.OrderOueryVo">
+    select 
+    <include refid="Base_Column_List" />
+    from ord_deal_order
+    where  del_flag =0 
+      <if test="orderId != null" >
+         and order_id = #{orderId,jdbcType=INTEGER}
+      </if>
+      <if test="productId != null" >
+         and product_id = #{productId,jdbcType=INTEGER}
+      </if>
+      <if test="firstDestGroupId != null" >
+         and first_dest_group_id = #{firstDestGroupId,jdbcType=INTEGER}
+      </if>
+      <if test="destCategoryId != null" >
+         and dest_category_id = #{destCategoryId,jdbcType=INTEGER}
+      </if>
+      <if test="secDestGroupId != null" >
+         and sec_dest_group_id = #{secDestGroupId,jdbcType=INTEGER}
+      </if>
+      <if test="productName != null and productName!=''" >
+         and product_name like CONCAT('%',#{productName},'%')
+      </if>
+       <if test="departStartDateDB != null and departEndDateDB==null">
+            <![CDATA[
+      AND depart_date >=#{departStartDateDB,jdbcType=TIMESTAMP}   
+               ]]> 
+     </if>
+       <if test="departStartDateDB  == null and departEndDateDB!=null">
+           <![CDATA[
+      AND depart_date <=#{departEndDateDB,jdbcType=TIMESTAMP}  
+         ]]> 
+     </if>
+       <if test="departStartDateDB != null and departEndDateDB!=null">
+          <![CDATA[
+      AND depart_date >=#{departStartDateDB,jdbcType=TIMESTAMP} AND depart_date <=#{departEndDateDB,jdbcType=TIMESTAMP}
+          ]]>
+     </if>  
+      <if test="statusCode != null and statusCode!=''" >
+        and status_code = #{statusCode,jdbcType=VARCHAR}
+      </if>
+      <if test="customerStaffId != null" >
+        and customer_staff_id = #{customerStaffId,jdbcType=INTEGER}
+      </if>
+      <if test="customerManagerId != null" >
+        and customer_manager_id = #{customerManagerId,jdbcType=INTEGER}
+      </if>
+      <if test="productStaffId != null" >
+        and product_staff_id = #{productStaffId,jdbcType=INTEGER}
+      </if>
+      <if test="productManagerId != null" >
+        and product_manager_id = #{productManagerId,jdbcType=INTEGER}
+      </if>
+      <if test="operationStaffId != null" >
+        and operation_staff_id = #{operationStaffId,jdbcType=INTEGER}
+      </if>
+      <if test="operationManagerId != null" >
+        and operation_manager_id = #{operationManagerId,jdbcType=INTEGER}
+      </if>
+      <if test="orderStartDateDB != null and orderEndDateDB==null">
+            <![CDATA[
+      AND add_time >=#{orderStartDateDB,jdbcType=TIMESTAMP}   
+               ]]> 
+     </if>
+       <if test="orderStartDateDB  == null and orderEndDateDB!=null">
+           <![CDATA[
+      AND add_time <=#{orderEndDateDB,jdbcType=TIMESTAMP}  
+         ]]> 
+     </if>
+       <if test="orderStartDateDB != null and orderEndDateDB!=null">
+          <![CDATA[
+      AND add_time >=#{orderStartDateDB,jdbcType=TIMESTAMP} AND add_time <=#{orderEndDateDB,jdbcType=TIMESTAMP}
+          ]]>
+     </if>  
+      <if test="sortColumn != null and sortColumn==1" >
+        order by add_time desc
+      </if>
+      <if test="sortColumn != null and sortColumn==2" >
+        order by add_time asc
+      </if>
+      limit #{start},#{limit}
+  </select>
+  <select id="count" resultType="java.lang.Integer" parameterType="com.tuniu.ord.vo.OrderOueryVo">
+   select 
+     count(*)
+    from ord_deal_order
+    where  del_flag =0 
+      <if test="orderId != null" >
+         and order_id = #{orderId,jdbcType=INTEGER}
+      </if>
+      <if test="productId != null" >
+         and product_id = #{productId,jdbcType=INTEGER}
+      </if>
+      <if test="firstDestGroupId != null" >
+         and first_dest_group_id = #{firstDestGroupId,jdbcType=INTEGER}
+      </if>
+      <if test="destCategoryId != null" >
+         and dest_category_id = #{destCategoryId,jdbcType=INTEGER}
+      </if>
+      <if test="secDestGroupId != null" >
+         and sec_dest_group_id = #{secDestGroupId,jdbcType=INTEGER}
+      </if>
+      <if test="productName != null and productName!=''">
+         and product_name like CONCAT('%',#{productName},'%')
+      </if>
+        <if test="departStartDateDB != null and departEndDateDB==null">
+            <![CDATA[
+      AND depart_date >=#{departStartDateDB,jdbcType=TIMESTAMP}   
+               ]]> 
+     </if>
+       <if test="departStartDateDB  == null and departEndDateDB!=null">
+           <![CDATA[
+      AND depart_date <=#{departEndDateDB,jdbcType=TIMESTAMP}  
+         ]]> 
+     </if>
+       <if test="departStartDateDB != null and departEndDateDB!=null">
+          <![CDATA[
+      AND depart_date >=#{departStartDateDB,jdbcType=TIMESTAMP} AND depart_date <=#{departEndDateDB,jdbcType=TIMESTAMP}
+          ]]>
+     </if>  
+      <if test="statusCode != null and statusCode!=''" >
+        and status_code = #{statusCode,jdbcType=VARCHAR}
+      </if>
+      <if test="customerStaffId != null" >
+        and customer_staff_id = #{customerStaffId,jdbcType=INTEGER}
+      </if>
+      <if test="customerManagerId != null" >
+        and customer_manager_id = #{customerManagerId,jdbcType=INTEGER}
+      </if>
+      <if test="productStaffId != null" >
+        and product_staff_id = #{productStaffId,jdbcType=INTEGER}
+      </if>
+      <if test="productManagerId != null" >
+        and product_manager_id = #{productManagerId,jdbcType=INTEGER}
+      </if>
+      <if test="operationStaffId != null" >
+        and operation_staff_id = #{operationStaffId,jdbcType=INTEGER}
+      </if>
+      <if test="operationManagerId != null" >
+        and operation_manager_id = #{operationManagerId,jdbcType=INTEGER}
+      </if>
+       <if test="orderStartDateDB != null and orderEndDateDB==null">
+            <![CDATA[
+      AND add_time >=#{orderStartDateDB,jdbcType=TIMESTAMP}   
+               ]]> 
+     </if>
+       <if test="orderStartDateDB  == null and orderEndDateDB!=null">
+           <![CDATA[
+      AND add_time <=#{orderEndDateDB,jdbcType=TIMESTAMP}  
+         ]]> 
+     </if>
+       <if test="orderStartDateDB != null and orderEndDateDB!=null">
+          <![CDATA[
+      AND add_time >=#{orderStartDateDB,jdbcType=TIMESTAMP} AND add_time <=#{orderEndDateDB,jdbcType=TIMESTAMP}
+          ]]>
+     </if>  
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ord_deal_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.tuniu.ord.domain.OrdDealOrder" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ord_deal_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="firstDestGroupId != null" >
+        first_dest_group_id,
+      </if>
+      <if test="destCategoryId != null" >
+        dest_category_id,
+      </if>
+      <if test="destCategoryName != null" >
+        dest_category_name,
+      </if>
+      <if test="firstDestGroupName != null" >
+        first_dest_group_name,
+      </if>
+      <if test="secDestGroupId != null" >
+        sec_dest_group_id,
+      </if>
+      <if test="secDestGroupName != null" >
+        sec_dest_group_name,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="groupName != null" >
+        group_name,
+      </if>
+      <if test="departDate != null" >
+        depart_date,
+      </if>
+      <if test="closingDate != null" >
+        closing_date,
+      </if>
+      <if test="distributorId != null" >
+        distributor_id,
+      </if>
+      <if test="statusCode != null" >
+        status_code,
+      </if>
+      <if test="customerStaffId != null" >
+        customer_staff_id,
+      </if>
+      <if test="customerStaffName != null" >
+        customer_staff_name,
+      </if>
+      <if test="customerManagerId != null" >
+        customer_manager_id,
+      </if>
+      <if test="customerManagerName != null" >
+        customer_manager_name,
+      </if>
+      <if test="productStaffId != null" >
+        product_staff_id,
+      </if>
+      <if test="productStaffName != null" >
+        product_staff_name,
+      </if>
+      <if test="productManagerId != null" >
+        product_manager_id,
+      </if>
+      <if test="productManagerName != null" >
+        product_manager_name,
+      </if>
+      <if test="operationStaffId != null" >
+        operation_staff_id,
+      </if>
+      <if test="operationStaffName != null" >
+        operation_staff_name,
+      </if>
+      <if test="operationManagerId != null" >
+        operation_manager_id,
+      </if>
+      <if test="operationManagerName != null" >
+        operation_manager_name,
+      </if>
+      <if test="addUid != null" >
+        add_uid,
+      </if>
+      <if test="addUname != null" >
+        add_uname,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateUid != null" >
+        update_uid,
+      </if>
+      <if test="updateUname != null" >
+        update_uname,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="extBatchId != null" >
+        ext_batch_id,
+      </if>
+      <if test="extDbatchId != null" >
+        ext_dbatch_id,
+      </if>
+      <if test="occupyBatchId != null" >
+        occupy_batch_id,
+      </if>
+      <if test="outLibraryId != null" >
+        out_library_id,
+      </if>
+      <if test="departureCityCode != null" >
+        departure_city_code,
+      </if>
+      <if test="departureCityName != null" >
+        departure_city_name,
+      </if>
+      <if test="continentCode != null" >
+        continent_code,
+      </if>
+      <if test="continentName != null" >
+        continent_name,
+      </if>
+      <if test="countryCode != null" >
+        country_code,
+      </if>
+      <if test="countryName != null" >
+        country_name,
+      </if>
+      <if test="provinceCode != null" >
+        province_code,
+      </if>
+      <if test="provinceName != null" >
+        province_name,
+      </if>
+      <if test="cityCode != null" >
+        city_code,
+      </if>
+      <if test="cityName != null" >
+        city_name,
+      </if>
+      <if test="districtCode != null" >
+        district_code,
+      </if>
+      <if test="districtName != null" >
+        district_name,
+      </if>
+      <if test="productCategory != null" >
+        product_category,
+      </if>
+      <if test="productCategoryName != null" >
+        product_category_name,
+      </if>
+      <if test="productSubCategory != null" >
+        product_sub_category,
+      </if>
+      <if test="productSubCategoryName != null" >
+        product_sub_category_name,
+      </if>
+      <if test="destId != null" >
+        dest_id,
+      </if>
+      <if test="destName != null" >
+        dest_name,
+      </if>
+      <if test="productLineId != null" >
+        product_line_id,
+      </if>
+      <if test="dealOrderType != null" >
+        deal_order_type,
+      </if>
+      <if test="dealOrderNum != null" >
+        deal_order_num,
+      </if>
+      <if test="dayNum != null" >
+        day_num,
+      </if>
+      <if test="backDate != null" >
+        back_date,
+      </if>
+      <if test="adultPrice != null" >
+        adult_price,
+      </if>
+      <if test="childPrice != null" >
+        child_price,
+      </if>
+      <if test="sellChannelCode != null" >
+       sell_channel_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="firstDestGroupId != null" >
+        #{firstDestGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="destCategoryId != null" >
+        #{destCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="destCategoryName != null" >
+        #{destCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="firstDestGroupName != null" >
+        #{firstDestGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="secDestGroupId != null" >
+        #{secDestGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="secDestGroupName != null" >
+        #{secDestGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null" >
+        #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="groupName != null" >
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="departDate != null" >
+        #{departDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closingDate != null" >
+        #{closingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="distributorId != null" >
+        #{distributorId,jdbcType=VARCHAR},
+      </if>
+      <if test="statusCode != null" >
+        #{statusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="customerStaffId != null" >
+        #{customerStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="customerStaffName != null" >
+        #{customerStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerManagerId != null" >
+        #{customerManagerId,jdbcType=INTEGER},
+      </if>
+      <if test="customerManagerName != null" >
+        #{customerManagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="productStaffId != null" >
+        #{productStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="productStaffName != null" >
+        #{productStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="productManagerId != null" >
+        #{productManagerId,jdbcType=INTEGER},
+      </if>
+      <if test="productManagerName != null" >
+        #{productManagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="operationStaffId != null" >
+        #{operationStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="operationStaffName != null" >
+        #{operationStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="operationManagerId != null" >
+        #{operationManagerId,jdbcType=INTEGER},
+      </if>
+      <if test="operationManagerName != null" >
+        #{operationManagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="addUid != null" >
+        #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="extBatchId != null" >
+        #{extBatchId,jdbcType=INTEGER},
+      </if>
+      <if test="extDbatchId != null" >
+        #{extDbatchId,jdbcType=INTEGER},
+      </if>
+      <if test="occupyBatchId != null" >
+        #{occupyBatchId,jdbcType=INTEGER},
+      </if>
+      <if test="outLibraryId != null" >
+        #{outLibraryId,jdbcType=INTEGER},
+      </if>
+      <if test="departureCityCode != null" >
+        #{departureCityCode,jdbcType=INTEGER},
+      </if>
+      <if test="departureCityName != null" >
+        #{departureCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="continentCode != null" >
+        #{continentCode,jdbcType=INTEGER},
+      </if>
+      <if test="continentName != null" >
+        #{continentName,jdbcType=VARCHAR},
+      </if>
+      <if test="countryCode != null" >
+        #{countryCode,jdbcType=INTEGER},
+      </if>
+      <if test="countryName != null" >
+        #{countryName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null" >
+        #{provinceCode,jdbcType=INTEGER},
+      </if>
+      <if test="provinceName != null" >
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        #{cityCode,jdbcType=INTEGER},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="districtCode != null" >
+        #{districtCode,jdbcType=INTEGER},
+      </if>
+      <if test="districtName != null" >
+        #{districtName,jdbcType=VARCHAR},
+      </if>
+      <if test="productCategory != null" >
+        #{productCategory,jdbcType=INTEGER},
+      </if>
+      <if test="productCategoryName != null" >
+        #{productCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="productSubCategory != null" >
+        #{productSubCategory,jdbcType=INTEGER},
+      </if>
+      <if test="productSubCategoryName != null" >
+        #{productSubCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="destId != null" >
+        #{destId,jdbcType=INTEGER},
+      </if>
+      <if test="destName != null" >
+        #{destName,jdbcType=VARCHAR},
+      </if>
+      <if test="productLineId != null" >
+        #{productLineId,jdbcType=INTEGER},
+      </if>
+      <if test="dealOrderType != null" >
+        #{dealOrderType},
+      </if>
+      <if test="dealOrderNum != null" >
+        #{dealOrderNum},
+      </if>
+      <if test="dayNum != null" >
+        #{dayNum},
+      </if>
+       <if test="backDate != null" >
+        #{backDate},
+      </if>
+       <if test="adultPrice != null" >
+        #{adultPrice},
+      </if>
+      <if test="childPrice != null" >
+        #{childPrice},
+      </if>
+      <if test="sellChannelCode != null" >
+       #{sellChannelCode},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuniu.ord.domain.OrdDealOrder" >
+    update ord_deal_order
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="firstDestGroupId != null" >
+        first_dest_group_id = #{firstDestGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="destCategoryId != null" >
+        dest_category_id = #{destCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="destCategoryName != null" >
+        dest_category_name = #{destCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="firstDestGroupName != null" >
+        first_dest_group_name = #{firstDestGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="secDestGroupId != null" >
+        sec_dest_group_id = #{secDestGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="secDestGroupName != null" >
+        sec_dest_group_name = #{secDestGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null" >
+        group_id = #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="groupName != null" >
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="departDate != null" >
+        depart_date = #{departDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closingDate != null" >
+        closing_date = #{closingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="distributorId != null" >
+        distributor_id = #{distributorId,jdbcType=VARCHAR},
+      </if>
+      <if test="statusCode != null" >
+        status_code = #{statusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="customerStaffId != null" >
+        customer_staff_id = #{customerStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="customerStaffName != null" >
+        customer_staff_name = #{customerStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerManagerId != null" >
+        customer_manager_id = #{customerManagerId,jdbcType=INTEGER},
+      </if>
+      <if test="customerManagerName != null" >
+        customer_manager_name = #{customerManagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="productStaffId != null" >
+        product_staff_id = #{productStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="productStaffName != null" >
+        product_staff_name = #{productStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="productManagerId != null" >
+        product_manager_id = #{productManagerId,jdbcType=INTEGER},
+      </if>
+      <if test="productManagerName != null" >
+        product_manager_name = #{productManagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="operationStaffId != null" >
+        operation_staff_id = #{operationStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="operationStaffName != null" >
+        operation_staff_name = #{operationStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="operationManagerId != null" >
+        operation_manager_id = #{operationManagerId,jdbcType=INTEGER},
+      </if>
+      <if test="operationManagerName != null" >
+        operation_manager_name = #{operationManagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="addUid != null" >
+        add_uid = #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        add_uname = #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        update_uid = #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        update_uname = #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="extBatchId != null" >
+        ext_batch_id = #{extBatchId,jdbcType=INTEGER},
+      </if>
+      <if test="extDbatchId != null" >
+        ext_dbatch_id = #{extDbatchId,jdbcType=INTEGER},
+      </if>
+      <if test="occupyBatchId != null" >
+        occupy_batch_id = #{occupyBatchId,jdbcType=INTEGER},
+      </if>
+      <if test="outLibraryId != null" >
+        out_library_id = #{outLibraryId,jdbcType=INTEGER},
+      </if>
+      <if test="dealOrderType != null" >
+        deal_order_type = #{dealOrderType},
+      </if>
+       <if test="dayNum != null" >
+        day_num = #{dayNum},
+      </if>
+      <if test="backDate != null" >
+        back_date = #{backDate},
+      </if>
+      <if test="adultPrice != null" >
+        adult_price = #{adultPrice},
+      </if>
+      <if test="childPrice != null" >
+        child_price = #{childPrice},
+      </if>
+      <if test="sellChannelCode != null" >
+       sell_channel_code = #{sellChannelCode},
+      </if>
+      <if test="occupyNum != null">
+        occupy_num = #{occupyNum},
+      </if>
+      <if test="confirmNum != null">
+      	confirm_num = #{confirmNum},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.tuniu.ord.domain.OrdDealOrder" >
+    update ord_deal_order
+    set order_id = #{orderId,jdbcType=INTEGER},
+      product_id = #{productId,jdbcType=INTEGER},
+      first_dest_group_id = #{firstDestGroupId,jdbcType=INTEGER},
+      dest_category_id = #{destCategoryId,jdbcType=INTEGER},
+      dest_category_name = #{destCategoryName,jdbcType=VARCHAR},
+      first_dest_group_name = #{firstDestGroupName,jdbcType=VARCHAR},
+      sec_dest_group_id = #{secDestGroupId,jdbcType=INTEGER},
+      sec_dest_group_name = #{secDestGroupName,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      group_id = #{groupId,jdbcType=INTEGER},
+      group_name = #{groupName,jdbcType=VARCHAR},
+      depart_date = #{departDate,jdbcType=TIMESTAMP},
+      closing_date = #{closingDate,jdbcType=TIMESTAMP},
+      distributor_id = #{distributorId,jdbcType=VARCHAR},
+      status_code = #{statusCode,jdbcType=VARCHAR},
+      customer_staff_id = #{customerStaffId,jdbcType=INTEGER},
+      customer_staff_name = #{customerStaffName,jdbcType=VARCHAR},
+      customer_manager_id = #{customerManagerId,jdbcType=INTEGER},
+      customer_manager_name = #{customerManagerName,jdbcType=VARCHAR},
+      product_staff_id = #{productStaffId,jdbcType=INTEGER},
+      product_staff_name = #{productStaffName,jdbcType=VARCHAR},
+      product_manager_id = #{productManagerId,jdbcType=INTEGER},
+      product_manager_name = #{productManagerName,jdbcType=VARCHAR},
+      operation_staff_id = #{operationStaffId,jdbcType=INTEGER},
+      operation_staff_name = #{operationStaffName,jdbcType=VARCHAR},
+      operation_manager_id = #{operationManagerId,jdbcType=INTEGER},
+      operation_manager_name = #{operationManagerName,jdbcType=VARCHAR},
+      add_uid = #{addUid,jdbcType=INTEGER},
+      add_uname = #{addUname,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_uid = #{updateUid,jdbcType=INTEGER},
+      update_uname = #{updateUname,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=INTEGER},
+      ext_batch_id = #{extBatchId,jdbcType=INTEGER},
+      occupy_batch_id = #{occupyBatchId,jdbcType=INTEGER},
+      out_library_id = #{outLibraryId,jdbcType=INTEGER},
+      deal_order_type = #{dealOrderType},
+      day_num = #{dayNum},
+      back_date = #{backDate},
+      adult_price = #{adultPrice},
+      child_price = #{childPrice},
+      sell_channel_code = #{sellChannelCode},
+      occupy_num = #{occupyNum},
+      confirm_num = #{confirmNum}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!--  由A资源入库批次修改D出库单ID -->
+   <update id="updateOrdDealOrderOutLibraryId" parameterType="com.tuniu.ord.domain.OrdDealOrder" >
+    update ord_deal_order
+    <set >
+      <if test="outLibraryId != null" >
+        out_library_id = #{outLibraryId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ext_batch_id = #{extBatchId,jdbcType=INTEGER} and del_flag=0
+  </update>
+  
+  <select id="queryRealAskNumber" resultMap="BaseResultMap">
+  	SELECT <include refid="Base_Column_List"/> FROM ord_deal_order
+	WHERE product_id = #{productId}
+	    AND deal_order_type = 2
+	    <if test="departDates!=null">
+	    	AND depart_date in
+		    <foreach collection="departDates" item="departDate" open="(" close=")" separator=",">
+	        	#{departDate}
+	    	</foreach>
+	    </if>
+	    AND status_code = 'OS002'
+	    AND del_flag = 0
+  </select>
+</mapper>

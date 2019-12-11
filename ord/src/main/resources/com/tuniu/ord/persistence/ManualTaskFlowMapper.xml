@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuniu.ord.persistence.ManualTaskFlowMapper" >
+  <resultMap id="BaseResultMap" type="com.tuniu.ord.domain.ManualTaskFlow" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="task_id" property="taskId" jdbcType="INTEGER" />
+    <result column="pre_task_id" property="preTaskId" jdbcType="INTEGER" />
+    <result column="post_task_id" property="postTaskId" jdbcType="INTEGER" />
+    <result column="task_status" property="taskStatus" jdbcType="INTEGER" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="add_uid" property="addUid" jdbcType="INTEGER" />
+    <result column="add_uname" property="addUname" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_uid" property="updateUid" jdbcType="INTEGER" />
+    <result column="update_uname" property="updateUname" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="del_flag" property="delFlag" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, task_id, pre_task_id, post_task_id, task_status, start_time, end_time, add_uid, 
+    add_uname, add_time, update_uid, update_uname, update_time, del_flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from manual_task_flow
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByTaskId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from manual_task_flow
+    where del_flag = 0
+        and task_id = #{taskId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from manual_task_flow
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tuniu.ord.domain.ManualTaskFlow" >
+    insert into manual_task_flow (id, task_id, pre_task_id, 
+      post_task_id, task_status, start_time, 
+      end_time, add_uid, add_uname, 
+      add_time, update_uid, update_uname, 
+      update_time, del_flag)
+    values (#{id,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}, #{preTaskId,jdbcType=INTEGER}, 
+      #{postTaskId,jdbcType=INTEGER}, #{taskStatus,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{addUid,jdbcType=INTEGER}, #{addUname,jdbcType=VARCHAR}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{updateUid,jdbcType=INTEGER}, #{updateUname,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuniu.ord.domain.ManualTaskFlow" useGeneratedKeys="true" keyProperty="id" >
+    insert into manual_task_flow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="preTaskId != null" >
+        pre_task_id,
+      </if>
+      <if test="postTaskId != null" >
+        post_task_id,
+      </if>
+      <if test="taskStatus != null" >
+        task_status,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="addUid != null" >
+        add_uid,
+      </if>
+      <if test="addUname != null" >
+        add_uname,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateUid != null" >
+        update_uid,
+      </if>
+      <if test="updateUname != null" >
+        update_uname,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null" >
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="preTaskId != null" >
+        #{preTaskId,jdbcType=INTEGER},
+      </if>
+      <if test="postTaskId != null" >
+        #{postTaskId,jdbcType=INTEGER},
+      </if>
+      <if test="taskStatus != null" >
+        #{taskStatus,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addUid != null" >
+        #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuniu.ord.domain.ManualTaskFlow" >
+    update manual_task_flow
+    <set >
+      <if test="taskId != null" >
+        task_id = #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="preTaskId != null" >
+        pre_task_id = #{preTaskId,jdbcType=INTEGER},
+      </if>
+      <if test="postTaskId != null" >
+        post_task_id = #{postTaskId,jdbcType=INTEGER},
+      </if>
+      <if test="taskStatus != null" >
+        task_status = #{taskStatus,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addUid != null" >
+        add_uid = #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        add_uname = #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        update_uid = #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        update_uname = #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuniu.ord.domain.ManualTaskFlow" >
+    update manual_task_flow
+    set task_id = #{taskId,jdbcType=INTEGER},
+      pre_task_id = #{preTaskId,jdbcType=INTEGER},
+      post_task_id = #{postTaskId,jdbcType=INTEGER},
+      task_status = #{taskStatus,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      add_uid = #{addUid,jdbcType=INTEGER},
+      add_uname = #{addUname,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_uid = #{updateUid,jdbcType=INTEGER},
+      update_uname = #{updateUname,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

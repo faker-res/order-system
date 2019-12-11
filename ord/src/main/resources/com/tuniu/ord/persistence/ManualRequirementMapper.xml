@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuniu.ord.persistence.ManualRequirementMapper" >
+  <resultMap id="BaseResultMap" type="com.tuniu.ord.domain.ManualRequirement" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="manual_order_id" property="manualOrderId" jdbcType="INTEGER" />
+    <result column="d_order_id" property="dOrderId" jdbcType="INTEGER" />
+    <result column="cut_type" property="cutType" jdbcType="INTEGER" />
+    <result column="adult_num" property="adultNum" jdbcType="INTEGER" />
+    <result column="child_num" property="childNum" jdbcType="INTEGER" />
+    <result column="older_num" property="olderNum" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="start_date" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="days" property="days" jdbcType="INTEGER" />
+    <result column="dest_category_id" property="destCategoryId" jdbcType="INTEGER" />
+    <result column="dest_category_name" property="destCategoryName" jdbcType="VARCHAR" />
+    <result column="first_dest_group_id" property="firstDestGroupId" jdbcType="INTEGER" />
+    <result column="first_dest_group_name" property="firstDestGroupName" jdbcType="VARCHAR" />
+    <result column="sec_dest_group_id" property="secDestGroupId" jdbcType="INTEGER" />
+    <result column="sec_dest_group_name" property="secDestGroupName" jdbcType="VARCHAR" />
+    <result column="dest_id" property="destId" jdbcType="INTEGER" />
+    <result column="dest_name" property="destName" jdbcType="VARCHAR" />
+    <result column="add_uid" property="addUid" jdbcType="INTEGER" />
+    <result column="add_uname" property="addUname" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_uid" property="updateUid" jdbcType="INTEGER" />
+    <result column="update_uname" property="updateUname" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="del_flag" property="delFlag" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, manual_order_id, d_order_id, cut_type, adult_num, child_num, older_num, product_id, 
+    product_name, start_date, end_date, days, dest_category_id, dest_category_name, 
+    first_dest_group_id, first_dest_group_name, sec_dest_group_id, sec_dest_group_name, 
+    dest_id, dest_name, add_uid, add_uname, add_time, update_uid, update_uname, update_time, 
+    del_flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from manual_requirement
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByManualOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from manual_requirement
+    where del_flag = 0
+        and manual_order_id = #{manualOrderId,jdbcType=INTEGER}
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    update from manual_requirement set del_flag = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <insert id="insertSelective" parameterType="com.tuniu.ord.domain.ManualRequirement" >
+    insert into manual_requirement
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="manualOrderId != null" >
+        manual_order_id,
+      </if>
+      <if test="dOrderId != null" >
+        d_order_id,
+      </if>
+      <if test="cutType != null" >
+        cut_type,
+      </if>
+      <if test="adultNum != null" >
+        adult_num,
+      </if>
+      <if test="childNum != null" >
+        child_num,
+      </if>
+      <if test="olderNum != null" >
+        older_num,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="days != null" >
+        days,
+      </if>
+      <if test="destCategoryId != null" >
+        dest_category_id,
+      </if>
+      <if test="destCategoryName != null" >
+        dest_category_name,
+      </if>
+      <if test="firstDestGroupId != null" >
+        first_dest_group_id,
+      </if>
+      <if test="firstDestGroupName != null" >
+        first_dest_group_name,
+      </if>
+      <if test="secDestGroupId != null" >
+        sec_dest_group_id,
+      </if>
+      <if test="secDestGroupName != null" >
+        sec_dest_group_name,
+      </if>
+      <if test="destId != null" >
+        dest_id,
+      </if>
+      <if test="destName != null" >
+        dest_name,
+      </if>
+      <if test="addUid != null" >
+        add_uid,
+      </if>
+      <if test="addUname != null" >
+        add_uname,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateUid != null" >
+        update_uid,
+      </if>
+      <if test="updateUname != null" >
+        update_uname,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="manualOrderId != null" >
+        #{manualOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="dOrderId != null" >
+        #{dOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="cutType != null" >
+        #{cutType,jdbcType=INTEGER},
+      </if>
+      <if test="adultNum != null" >
+        #{adultNum,jdbcType=INTEGER},
+      </if>
+      <if test="childNum != null" >
+        #{childNum,jdbcType=INTEGER},
+      </if>
+      <if test="olderNum != null" >
+        #{olderNum,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="days != null" >
+        #{days,jdbcType=INTEGER},
+      </if>
+      <if test="destCategoryId != null" >
+        #{destCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="destCategoryName != null" >
+        #{destCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="firstDestGroupId != null" >
+        #{firstDestGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="firstDestGroupName != null" >
+        #{firstDestGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="secDestGroupId != null" >
+        #{secDestGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="secDestGroupName != null" >
+        #{secDestGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="destId != null" >
+        #{destId,jdbcType=INTEGER},
+      </if>
+      <if test="destName != null" >
+        #{destName,jdbcType=VARCHAR},
+      </if>
+      <if test="addUid != null" >
+        #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuniu.ord.domain.ManualRequirement" >
+    update manual_requirement
+    <set >
+      <if test="manualOrderId != null" >
+        manual_order_id = #{manualOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="dOrderId != null" >
+        d_order_id = #{dOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="cutType != null" >
+        cut_type = #{cutType,jdbcType=INTEGER},
+      </if>
+      <if test="adultNum != null" >
+        adult_num = #{adultNum,jdbcType=INTEGER},
+      </if>
+      <if test="childNum != null" >
+        child_num = #{childNum,jdbcType=INTEGER},
+      </if>
+      <if test="olderNum != null" >
+        older_num = #{olderNum,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="days != null" >
+        days = #{days,jdbcType=INTEGER},
+      </if>
+      <if test="destCategoryId != null" >
+        dest_category_id = #{destCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="destCategoryName != null" >
+        dest_category_name = #{destCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="firstDestGroupId != null" >
+        first_dest_group_id = #{firstDestGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="firstDestGroupName != null" >
+        first_dest_group_name = #{firstDestGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="secDestGroupId != null" >
+        sec_dest_group_id = #{secDestGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="secDestGroupName != null" >
+        sec_dest_group_name = #{secDestGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="destId != null" >
+        dest_id = #{destId,jdbcType=INTEGER},
+      </if>
+      <if test="destName != null" >
+        dest_name = #{destName,jdbcType=VARCHAR},
+      </if>
+      <if test="addUid != null" >
+        add_uid = #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        add_uname = #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        update_uid = #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        update_uname = #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

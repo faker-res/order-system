@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuniu.ord.persistence.ManualOrderMapper" >
+
+  <resultMap id="BaseResultMap" type="com.tuniu.ord.domain.ManualOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="status_code" property="statusCode" jdbcType="TINYINT" />
+    <result column="adult_price" property="adultPrice" jdbcType="DECIMAL" />
+    <result column="adult_count" property="adultCount" jdbcType="INTEGER" />
+    <result column="child_price" property="childPrice" jdbcType="DECIMAL" />
+    <result column="child_count" property="childCount" jdbcType="INTEGER" />
+    <result column="single_room_price" property="singleRoomPrice" jdbcType="DECIMAL" />
+    <result column="single_room_count" property="singleRoomCount" jdbcType="INTEGER" />
+    <result column="supplement_item" property="supplementItem" jdbcType="DECIMAL" />
+    <result column="total_price" property="totalPrice" jdbcType="DECIMAL" />
+    <result column="add_uid" property="addUid" jdbcType="INTEGER" />
+    <result column="add_uname" property="addUname" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_uid" property="updateUid" jdbcType="INTEGER" />
+    <result column="update_uname" property="updateUname" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="del_flag" property="delFlag" jdbcType="TINYINT" />
+  </resultMap>
+  
+   <!-- 订单列表查询结果集映射 -->
+  <resultMap type="com.tuniu.ord.vo.createOrder.ManualOrderQueryVo" id="newResultMap">
+     <result column="id" property="manualOrderId" jdbcType="INTEGER"/>
+     <result column="status_code" property="statusCode" jdbcType="VARCHAR"/>
+     <result column="add_time" property="createOrderTime" jdbcType="TIMESTAMP"/>
+     <result column="product_id" property="productId" jdbcType="INTEGER"/>
+     <result column="product_name" property="productName" jdbcType="VARCHAR"/>
+     <result column="start_date" property="departDate" jdbcType="TIMESTAMP"/>
+  </resultMap>
+  
+  <!-- 订单列表查询结果集新版映射 -->
+  <resultMap type="com.tuniu.ord.vo.ManualOrderQueryOutputVo" id="ManualOrderMap">
+	<result column="order_id" property="manualOrderId" jdbcType="INTEGER" />
+	<result column="create_time" property="createOrderTime" jdbcType="TIMESTAMP" />
+	<result column="adult_count" property="adultCount" jdbcType="INTEGER" />
+	<result column="child_count" property="childCount" jdbcType="INTEGER" />
+	<result column="status_code" property="statusCode" jdbcType="INTEGER" />
+	<result column="product_id" property="productId" jdbcType="INTEGER" />
+	<result column="product_name" property="productName" jdbcType="VARCHAR" />
+	<result column="tour_date" property="tourDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+ 
+  <sql id="Base_Column_List" >
+    id, status_code, adult_price, adult_count, child_price, child_count, single_room_price, 
+    single_room_count, supplement_item, total_price, add_uid, add_uname, add_time, update_uid, 
+    update_uname, update_time, del_flag
+  </sql>
+  
+  <!--人工订单查询字段列表  -->
+  <sql id="manual_order_list">
+    m_order.id order_id,m_order.add_time create_time,m_order.adult_count,m_order.child_count,m_order.status_code,
+    m_product.product_id,m_product.product_name,m_product.start_date tour_date 
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from manual_order
+    where del_flag = 0 and id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByManualOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from manual_order
+    where del_flag = 0 and id = #{manualOrderId,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insertSelective" parameterType="com.tuniu.ord.domain.ManualOrder" useGeneratedKeys="true" keyProperty="id" >
+    insert into manual_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="statusCode != null" >
+        status_code,
+      </if>
+      <if test="adultPrice != null" >
+        adult_price,
+      </if>
+      <if test="adultCount != null" >
+        adult_count,
+      </if>
+      <if test="childPrice != null" >
+        child_price,
+      </if>
+      <if test="childCount != null" >
+        child_count,
+      </if>
+      <if test="singleRoomPrice != null" >
+        single_room_price,
+      </if>
+      <if test="singleRoomCount != null" >
+        single_room_count,
+      </if>
+      <if test="supplementItem != null" >
+        supplement_item,
+      </if>
+      <if test="totalPrice != null" >
+        total_price,
+      </if>
+      <if test="addUid != null" >
+        add_uid,
+      </if>
+      <if test="addUname != null" >
+        add_uname,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateUid != null" >
+        update_uid,
+      </if>
+      <if test="updateUname != null" >
+        update_uname,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="statusCode != null" >
+        #{statusCode,jdbcType=TINYINT},
+      </if>
+      <if test="adultPrice != null" >
+        #{adultPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="adultCount != null" >
+        #{adultCount,jdbcType=INTEGER},
+      </if>
+      <if test="childPrice != null" >
+        #{childPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="childCount != null" >
+        #{childCount,jdbcType=INTEGER},
+      </if>
+      <if test="singleRoomPrice != null" >
+        #{singleRoomPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="singleRoomCount != null" >
+        #{singleRoomCount,jdbcType=INTEGER},
+      </if>
+      <if test="supplementItem != null" >
+        #{supplementItem,jdbcType=DECIMAL},
+      </if>
+      <if test="totalPrice != null" >
+        #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="addUid != null" >
+        #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuniu.ord.domain.ManualOrder" >
+    update manual_order
+    <set >
+      <if test="statusCode != null" >
+        status_code = #{statusCode,jdbcType=TINYINT},
+      </if>
+      <if test="adultPrice != null" >
+        adult_price = #{adultPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="adultCount != null" >
+        adult_count = #{adultCount,jdbcType=INTEGER},
+      </if>
+      <if test="childPrice != null" >
+        child_price = #{childPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="childCount != null" >
+        child_count = #{childCount,jdbcType=INTEGER},
+      </if>
+      <if test="singleRoomPrice != null" >
+        single_room_price = #{singleRoomPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="singleRoomCount != null" >
+        single_room_count = #{singleRoomCount,jdbcType=INTEGER},
+      </if>
+      <if test="supplementItem != null" >
+        supplement_item = #{supplementItem,jdbcType=DECIMAL},
+      </if>
+      <if test="totalPrice != null" >
+        total_price = #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="addUid != null" >
+        add_uid = #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        add_uname = #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        update_uid = #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        update_uname = #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!--  订单列表查询-->
+  <select id="getManualOrderList" parameterType="com.tuniu.ord.vo.createOrder.ManualOrderQueryInter" resultMap="newResultMap">
+	  SELECT o.id,o.status_code,o.add_time,r.product_id,r.product_name,r.start_date
+	  FROM manual_order o,manual_requirement r
+	  WHERE o.id = r.manual_order_id AND o.del_flag = 0 AND r.del_flag = 0
+	    <if test="manualOrderId!=null">
+	       AND o.id = #{manualOrderId}
+	    </if>
+	    <if test="statusCode!=null">
+	       AND o.status_code =#{statusCode}
+	    </if>
+	    <if test="startTime!=null and endTime==null">
+	      <![CDATA[
+	       AND o.add_time >= #{startTime}
+	        ]]>
+	    </if>
+	    <if test="startTime==null and endTime!=null">
+	      <![CDATA[
+	       AND o.add_time <= #{endTime}
+	      ]]>
+	    </if>
+	    <if test="startTime!=null and endTime!=null">
+	       <![CDATA[
+	       AND o.add_time >= #{startTime} AND o.add_time <= #{endTime}
+	       ]]>
+	    </if>
+	    <if test="productId!=null">
+	       AND r.product_id = #{productId}
+	    </if>
+	    <if test="productName!=null">
+	       AND r.product_name LIKE CONCAT('%',#{productName},'%') 
+	    </if>
+	    <if test="tourDate!=null">
+	       AND r.start_date =#{tourDate}
+	    </if>
+	ORDER BY o.add_time DESC
+	limit #{start},#{limit};
+  </select>
+  
+   <select id="countManualOrderList" parameterType="com.tuniu.ord.vo.createOrder.ManualOrderQueryInter" resultType="java.lang.Integer">
+	  SELECT count(*) FROM manual_order o,manual_requirement r
+	  WHERE o.id = r.manual_order_id AND o.del_flag = 0 AND r.del_flag = 0
+	    <if test="manualOrderId!=null">
+	       AND o.id = #{manualOrderId}
+	    </if>
+	    <if test="statusCode!=null">
+	       AND o.status_code =#{statusCode}
+	    </if>
+	    <if test="startTime!=null and endTime==null">
+	       <![CDATA[
+	       AND o.add_time >= #{startTime}
+	         ]]>
+	    </if>
+	    <if test="startTime==null and endTime!=null">
+	       <![CDATA[
+	       AND o.add_time <= #{endTime}
+	        ]]>
+	    </if>
+	    <if test="startTime!=null and endTime!=null">
+	       <![CDATA[
+	       AND o.add_time >= #{startTime} AND o.add_time <= #{endTime}
+	          ]]>
+	    </if>
+	    <if test="productId!=null">
+	       AND r.product_id = #{productId}
+	    </if>
+	    <if test="productName!=null">
+	       AND r.product_name LIKE CONCAT('%',#{productName},'%') 
+	    </if>
+	    <if test="tourDate!=null">
+	       AND r.start_date =#{tourDate}
+	    </if>
+  </select>
+  
+  <!--  人工订单查询新版本-->
+  <select id="getNewManualOrder" parameterType="com.tuniu.ord.vo.ManualOrderQueryInputVo" resultMap="ManualOrderMap">
+   SELECT <include refid="manual_order_list"/>
+   FROM manual_order m_order, manual_requirement m_product,manual_contact m_contact
+   WHERE m_order.id = m_product.manual_order_id AND m_order.id = m_contact.manual_order_id 
+   AND m_order.del_flag=0 AND m_product.del_flag=0 AND m_contact.del_flag=0
+    <if test="productIds!=null and productIds.size()>0">
+       AND m_product.product_id in 
+       <foreach index="index" item="item" collection="productIds" open="(" separator="," close=")">
+           #{item}
+       </foreach>
+    </if>
+    <if test="productName!=null and productName!=''">
+	   AND m_product.product_name like CONCAT('%',#{productName},'%') 
+	</if>
+	<if test="tourStartDate!=null and tourEndDate==null">
+	       <![CDATA[
+	       AND m_product.start_date >= #{tourStartDate}
+	         ]]>
+	</if>
+	  <if test="tourStartDate==null and tourEndDate!=null">
+	       <![CDATA[
+	       AND m_product.start_date <= #{tourEndDate}
+	        ]]>
+	  </if>
+	  <if test="tourStartDate!=null and tourEndDate!=null">
+	       <![CDATA[
+	       AND m_product.start_date >= #{tourStartDate} AND m_product.start_date <= #{tourEndDate}
+	          ]]>
+	  </if>
+	  <if test="destCategoryId!=null">
+	       AND m_product.dest_category_id=#{destCategoryId}
+	  </if>
+	  <if test="firstDestGroupId!=null">
+	        AND m_product.first_dest_group_id=#{firstDestGroupId}
+	  </if>
+	  <if test="secDestGroupId!=null">
+	       AND m_product.sec_dest_group_id=#{secDestGroupId}
+	  </if>
+	  <if test="destId!=null">
+	        AND m_product.dest_id=#{destId}
+	  </if>
+	  <if test="manualOrderId!=null">
+	       AND m_order.id = #{manualOrderId}
+	  </if>
+	  <if test="statusCode!=null">
+	       AND m_order.status_code =#{statusCode}
+	  </if>
+	   <if test="startTime!=null and endTime==null">
+	       <![CDATA[
+	       AND m_order.add_time >= #{startTime}
+	         ]]>
+	   </if>
+	   <if test="startTime==null and endTime!=null">
+	       <![CDATA[
+	       AND m_order.add_time <= #{endTime}
+	        ]]>
+	   </if>
+	   <if test="startTime!=null and endTime!=null">
+	       <![CDATA[
+	       AND m_order.add_time >= #{startTime} AND m_order.add_time <= #{endTime}
+	          ]]>
+	   </if>
+	   <if test="memberId!=null">
+	        AND m_contact.member_id=#{memberId}
+	   </if>
+   ORDER BY m_order.add_time DESC 
+   limit #{start},#{limit};
+  </select> 
+  
+  <!-- 人工订单查询数量新版本 -->
+  <select id="countNewManualOrder" parameterType="com.tuniu.ord.vo.ManualOrderQueryInputVo" resultType="java.lang.Integer">
+   SELECT count(*)
+   FROM manual_order m_order, manual_requirement m_product,manual_contact m_contact
+   WHERE m_order.id = m_product.manual_order_id AND m_order.id = m_contact.manual_order_id 
+   AND m_order.del_flag=0 AND m_product.del_flag=0 AND m_contact.del_flag=0
+    <if test="productIds!=null and productIds.size()>0">
+       AND m_product.product_id in 
+       <foreach index="index" item="item" collection="productIds" open="(" separator="," close=")">
+           #{item}
+       </foreach>
+    </if>
+    <if test="productName!=null and productName!=''">
+	   AND m_product.product_name like CONCAT('%',#{productName},'%') 
+	</if>
+	<if test="tourStartDate!=null and tourEndDate==null">
+	       <![CDATA[
+	       AND m_product.start_date >= #{tourStartDate}
+	         ]]>
+	</if>
+	  <if test="tourStartDate==null and tourEndDate!=null">
+	       <![CDATA[
+	       AND m_product.start_date <= #{tourEndDate}
+	        ]]>
+	  </if>
+	  <if test="tourStartDate!=null and tourEndDate!=null">
+	       <![CDATA[
+	       AND m_product.start_date >= #{tourStartDate} AND m_product.start_date <= #{tourEndDate}
+	          ]]>
+	  </if>
+	  <if test="destCategoryId!=null">
+	       AND m_product.dest_category_id=#{destCategoryId}
+	  </if>
+	  <if test="firstDestGroupId!=null">
+	        AND m_product.first_dest_group_id=#{firstDestGroupId}
+	  </if>
+	  <if test="secDestGroupId!=null">
+	       AND m_product.sec_dest_group_id=#{secDestGroupId}
+	  </if>
+	  <if test="destId!=null">
+	        AND m_product.dest_id=#{destId}
+	  </if>
+	  <if test="manualOrderId!=null">
+	       AND m_order.id = #{manualOrderId}
+	  </if>
+	  <if test="statusCode!=null">
+	       AND m_order.status_code =#{statusCode}
+	  </if>
+	   <if test="startTime!=null and endTime==null">
+	       <![CDATA[
+	       AND m_order.add_time >= #{startTime}
+	         ]]>
+	   </if>
+	   <if test="startTime==null and endTime!=null">
+	       <![CDATA[
+	       AND m_order.add_time <= #{endTime}
+	        ]]>
+	   </if>
+	   <if test="startTime!=null and endTime!=null">
+	       <![CDATA[
+	       AND m_order.add_time >= #{startTime} AND m_order.add_time <= #{endTime}
+	          ]]>
+	   </if>
+	   <if test="memberId!=null">
+	        AND m_contact.member_id=#{memberId}
+	   </if>
+  </select> 
+  
+  
+ 
+</mapper>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuniu.ord.persistence.CheckLossDiffInfoMapper" >
+   <resultMap id="BaseResultMap" type="com.tuniu.ord.domain.CheckLossDiffInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="check_loss_id" property="checkLossId" jdbcType="INTEGER" />
+    <result column="channel_order_id" property="channelOrderId" jdbcType="VARCHAR" />
+    <result column="requirement_id" property="requirementId" jdbcType="INTEGER" />
+    <result column="tourist_id" property="touristId" jdbcType="VARCHAR" />
+    <result column="deal_order_id" property="dealOrderId" jdbcType="INTEGER" />
+    <result column="adult_price" property="adultPrice" jdbcType="DECIMAL" />
+    <result column="child_price" property="childPrice" jdbcType="DECIMAL" />
+    <result column="channel_deal_order_id" property="channelDealOrderId" jdbcType="INTEGER" />
+    <result column="loss_adult_num" property="lossAdultNum" jdbcType="INTEGER" />
+    <result column="loss_child_num" property="lossChildNum" jdbcType="INTEGER" />
+    <result column="channel_adult_price" property="channelAdultPrice" jdbcType="DECIMAL" />
+    <result column="channel_child_price" property="channelChildPrice" jdbcType="DECIMAL" />
+    <result column="add_uid" property="addUid" jdbcType="INTEGER" />
+    <result column="add_uname" property="addUname" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_uid" property="updateUid" jdbcType="INTEGER" />
+    <result column="update_uname" property="updateUname" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="del_flag" property="delFlag" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="checkLossDiffPriceId" type="com.tuniu.ord.vo.CheckLossDiffPriceVo" >
+    <result column="deal_order_id" property="dealOrderId" jdbcType="INTEGER" />
+    <result column="channel_deal_order_id" property="channelDealOrderId" jdbcType="INTEGER" />
+    <result column="loss_adult_customer" property="lossAdultCustomer" jdbcType="DECIMAL" />
+    <result column="loss_child_customer" property="lossChildCustomer" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, check_loss_id, channel_order_id, requirement_id, tourist_id, deal_order_id, adult_price, 
+    child_price, channel_deal_order_id, loss_adult_num, loss_child_num, channel_adult_price, 
+    channel_child_price, add_uid, add_uname, add_time, update_uid, update_uname, update_time, 
+    del_flag
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from check_loss_diff_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insertSelective" parameterType="com.tuniu.ord.domain.CheckLossDiffInfo" >
+    insert into check_loss_diff_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="checkLossId != null" >
+        check_loss_id,
+      </if>
+      <if test="channelOrderId != null" >
+        channel_order_id,
+      </if>
+      <if test="requirementId != null" >
+        requirement_id,
+      </if>
+      <if test="touristId != null" >
+        tourist_id,
+      </if>
+      <if test="dealOrderId != null" >
+        deal_order_id,
+      </if>
+      <if test="adultPrice != null" >
+        adult_price,
+      </if>
+      <if test="childPrice != null" >
+        child_price,
+      </if>
+      <if test="channelDealOrderId != null" >
+        channel_deal_order_id,
+      </if>
+      <if test="lossAdultNum != null" >
+        loss_adult_num,
+      </if>
+      <if test="lossChildNum != null" >
+        loss_child_num,
+      </if>
+      <if test="channelAdultPrice != null" >
+        channel_adult_price,
+      </if>
+      <if test="channelChildPrice != null" >
+        channel_child_price,
+      </if>
+      <if test="addUid != null" >
+        add_uid,
+      </if>
+      <if test="addUname != null" >
+        add_uname,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateUid != null" >
+        update_uid,
+      </if>
+      <if test="updateUname != null" >
+        update_uname,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="checkLossId != null" >
+        #{checkLossId,jdbcType=INTEGER},
+      </if>
+      <if test="channelOrderId != null" >
+        #{channelOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="requirementId != null" >
+        #{requirementId,jdbcType=INTEGER},
+      </if>
+      <if test="touristId != null" >
+        #{touristId,jdbcType=VARCHAR},
+      </if>
+      <if test="dealOrderId != null" >
+        #{dealOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="adultPrice != null" >
+        #{adultPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="childPrice != null" >
+        #{childPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="channelDealOrderId != null" >
+        #{channelDealOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="lossAdultNum != null" >
+        #{lossAdultNum,jdbcType=INTEGER},
+      </if>
+      <if test="lossChildNum != null" >
+        #{lossChildNum,jdbcType=INTEGER},
+      </if>
+      <if test="channelAdultPrice != null" >
+        #{channelAdultPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="channelChildPrice != null" >
+        #{channelChildPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="addUid != null" >
+        #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuniu.ord.domain.CheckLossDiffInfo" >
+    update check_loss_diff_info
+    <set >
+      <if test="checkLossId != null" >
+        check_loss_id = #{checkLossId,jdbcType=INTEGER},
+      </if>
+      <if test="channelOrderId != null" >
+        channel_order_id = #{channelOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="requirementId != null" >
+        requirement_id = #{requirementId,jdbcType=INTEGER},
+      </if>
+      <if test="touristId != null" >
+        tourist_id = #{touristId,jdbcType=VARCHAR},
+      </if>
+      <if test="dealOrderId != null" >
+        deal_order_id = #{dealOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="adultPrice != null" >
+        adult_price = #{adultPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="childPrice != null" >
+        child_price = #{childPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="channelDealOrderId != null" >
+        channel_deal_order_id = #{channelDealOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="lossAdultNum != null" >
+        loss_adult_num = #{lossAdultNum,jdbcType=INTEGER},
+      </if>
+      <if test="lossChildNum != null" >
+        loss_child_num = #{lossChildNum,jdbcType=INTEGER},
+      </if>
+      <if test="channelAdultPrice != null" >
+        channel_adult_price = #{channelAdultPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="channelChildPrice != null" >
+        channel_child_price = #{channelChildPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="addUid != null" >
+        add_uid = #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        add_uname = #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        update_uid = #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        update_uname = #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.tuniu.ord.domain.CheckLossDiffInfo" >
+    update check_loss_diff_info
+    set check_loss_id = #{checkLossId,jdbcType=INTEGER},
+      channel_order_id = #{channelOrderId,jdbcType=VARCHAR},
+      requirement_id = #{requirementId,jdbcType=INTEGER},
+      tourist_id = #{touristId,jdbcType=VARCHAR},
+      deal_order_id = #{dealOrderId,jdbcType=INTEGER},
+      adult_price = #{adultPrice,jdbcType=DECIMAL},
+      child_price = #{childPrice,jdbcType=DECIMAL},
+      channel_deal_order_id = #{channelDealOrderId,jdbcType=INTEGER},
+      loss_adult_num = #{lossAdultNum,jdbcType=INTEGER},
+      loss_child_num = #{lossChildNum,jdbcType=INTEGER},
+      channel_adult_price = #{channelAdultPrice,jdbcType=DECIMAL},
+      channel_child_price = #{channelChildPrice,jdbcType=DECIMAL},
+      add_uid = #{addUid,jdbcType=INTEGER},
+      add_uname = #{addUname,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_uid = #{updateUid,jdbcType=INTEGER},
+      update_uname = #{updateUname,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="queryInfoByCheckLossId" resultMap="BaseResultMap">
+  	SELECT <include refid="Base_Column_List" />
+	FROM check_loss_diff_info
+	WHERE check_loss_id = #{checkLossId}
+	    AND del_flag = 0
+  </select>
+  
+  <select id="queryADDiffInfo" resultMap="BaseResultMap">
+  	SELECT <include refid="Base_Column_List" />
+	FROM check_loss_diff_info
+	WHERE check_loss_id = #{checkLossId}
+	    AND deal_order_id != channel_deal_order_id
+	    AND del_flag = 0
+  </select>
+  
+  <select id="queryCheckLossDIffPrice" resultMap="checkLossDiffPriceId">
+  	SELECT
+	  a.deal_order_id,
+	  b.channel_deal_order_id,
+	  a.loss_adult_customer,
+	  a.loss_child_customer
+	FROM check_loss_detail a
+	  JOIN check_loss_diff_info b
+	    ON a.check_loss_id = b.check_loss_id
+	      AND a.deal_order_id = b.deal_order_id
+	      AND b.check_loss_id = #{checkLossId}
+  </select>
+</mapper>

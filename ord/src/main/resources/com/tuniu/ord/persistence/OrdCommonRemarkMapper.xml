@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuniu.ord.persistence.OrdCommonRemarkMapper" >
+  <resultMap id="BaseResultMap" type="com.tuniu.ord.domain.OrdCommonRemark" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="memo_type" property="memoType" jdbcType="VARCHAR" />
+    <result column="memo_content" property="memoContent" jdbcType="VARCHAR" />
+    <result column="add_uid" property="addUid" jdbcType="INTEGER" />
+    <result column="add_uname" property="addUname" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_uid" property="updateUid" jdbcType="INTEGER" />
+    <result column="update_uname" property="updateUname" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="del_flag" property="delFlag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_id, memo_type, memo_content, add_uid, add_uname, add_time, update_uid, 
+    update_uname, update_time, del_flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ord_common_remark
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByFields" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ord_common_remark
+    where del_flag=0 
+    <if test="orderId != null" >
+        and order_id = #{orderId,jdbcType=INTEGER}
+    </if>
+    <if test="memoType != null" >
+        and memo_type = #{memoType,jdbcType=VARCHAR} 
+    </if>
+    order by id desc
+    limit #{start},#{limit}
+  </select>
+  
+  <select id="countByFields" resultType="java.lang.Integer">
+    select count(0) from ord_common_remark
+    where del_flag=0 
+    <if test="orderId != null" >
+        and order_id = #{orderId,jdbcType=INTEGER}
+    </if>
+    <if test="memoType != null" >
+        and memo_type = #{memoType,jdbcType=VARCHAR} 
+    </if>
+  </select>
+  
+  
+  <update id="deleteByPrimaryKey" parameterType="com.tuniu.ord.vo.OrdCommonRemarkVo">
+    update ord_common_remark 
+    set del_flag=1
+    where id in
+    <foreach collection="ids" open="(" close=")" separator="," item="idItem">
+        #{idItem}
+    </foreach>
+  </update>
+  
+  <insert id="insert" parameterType="com.tuniu.ord.domain.OrdCommonRemark" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ord_common_remark (order_id, memo_type, memo_content, 
+      add_uid, add_uname, add_time, 
+      update_uid, update_uname, update_time, 
+      del_flag)
+    values (#{orderId,jdbcType=INTEGER}, #{memoType,jdbcType=VARCHAR}, #{memoContent,jdbcType=VARCHAR}, 
+      #{addUid,jdbcType=INTEGER}, #{addUname,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{updateUid,jdbcType=INTEGER}, #{updateUname,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{delFlag,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuniu.ord.domain.OrdCommonRemark" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ord_common_remark
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="memoType != null" >
+        memo_type,
+      </if>
+      <if test="memoContent != null" >
+        memo_content,
+      </if>
+      <if test="addUid != null" >
+        add_uid,
+      </if>
+      <if test="addUname != null" >
+        add_uname,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateUid != null" >
+        update_uid,
+      </if>
+      <if test="updateUname != null" >
+        update_uname,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="memoType != null" >
+        #{memoType,jdbcType=VARCHAR},
+      </if>
+      <if test="memoContent != null" >
+        #{memoContent,jdbcType=VARCHAR},
+      </if>
+      <if test="addUid != null" >
+        #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuniu.ord.domain.OrdCommonRemark" >
+    update ord_common_remark
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="memoType != null" >
+        memo_type = #{memoType,jdbcType=VARCHAR},
+      </if>
+      <if test="memoContent != null" >
+        memo_content = #{memoContent,jdbcType=VARCHAR},
+      </if>
+      <if test="addUid != null" >
+        add_uid = #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        add_uname = #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        update_uid = #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        update_uname = #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuniu.ord.domain.OrdCommonRemark" >
+    update ord_common_remark
+    set order_id = #{orderId,jdbcType=INTEGER},
+      memo_type = #{memoType,jdbcType=VARCHAR},
+      memo_content = #{memoContent,jdbcType=VARCHAR},
+      add_uid = #{addUid,jdbcType=INTEGER},
+      add_uname = #{addUname,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_uid = #{updateUid,jdbcType=INTEGER},
+      update_uname = #{updateUname,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

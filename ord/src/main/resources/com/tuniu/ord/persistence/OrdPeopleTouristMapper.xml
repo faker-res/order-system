@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuniu.ord.persistence.OrdPeopleTouristMapper" >
+  <resultMap id="BaseResultMap" type="com.tuniu.ord.domain.OrdPeopleTourist" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sell_order_id" property="sellOrderId" jdbcType="INTEGER" />
+    <result column="fab_contact_id" property="fabContactId" jdbcType="VARCHAR" />
+    <result column="fab_contact_name" property="fabContactName" jdbcType="VARCHAR" />
+    <result column="tourist_type" property="touristType" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="firstname" property="firstname" jdbcType="VARCHAR" />
+    <result column="lastname" property="lastname" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="pspt_type" property="psptType" jdbcType="VARCHAR" />
+    <result column="pspt_id" property="psptId" jdbcType="VARCHAR" />
+    <result column="pspt_end_date" property="psptEndDate" jdbcType="TIMESTAMP" />
+    <result column="birth_of_date" property="birthOfDate" jdbcType="TIMESTAMP" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="is_default" property="isDefault" jdbcType="INTEGER" />
+    <result column="add_uid" property="addUid" jdbcType="INTEGER" />
+    <result column="add_uname" property="addUname" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_uid" property="updateUid" jdbcType="INTEGER" />
+    <result column="update_uname" property="updateUname" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="del_flag" property="delFlag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sell_order_id, fab_contact_id, fab_contact_name, tourist_type, name, firstname, 
+    lastname, country, sex, pspt_type, pspt_id, pspt_end_date, birth_of_date, age, tel, 
+    is_default, add_uid, add_uname, add_time, update_uid, update_uname, update_time, 
+    del_flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ord_people_tourist
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByFields" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ord_people_tourist
+    where del_flag=0 and sell_order_id in 
+    <foreach collection="sellOrderIds" open="(" close=")" separator="," item="sellOrderId">
+     #{sellOrderId}
+     </foreach>
+    order by id desc
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ord_people_tourist
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tuniu.ord.domain.OrdPeopleTourist" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ord_people_tourist (sell_order_id, fab_contact_id, fab_contact_name, 
+      tourist_type, name, firstname, 
+      lastname, country, sex, 
+      pspt_type, pspt_id, pspt_end_date, 
+      birth_of_date, age, tel, 
+      is_default, add_uid, add_uname, 
+      add_time, update_uid, update_uname, 
+      update_time, del_flag)
+    values (#{sellOrderId,jdbcType=INTEGER}, #{fabContactId,jdbcType=VARCHAR}, #{fabContactName,jdbcType=VARCHAR}, 
+      #{touristType,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{firstname,jdbcType=VARCHAR}, 
+      #{lastname,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{psptType,jdbcType=VARCHAR}, #{psptId,jdbcType=VARCHAR}, #{psptEndDate,jdbcType=TIMESTAMP}, 
+      #{birthOfDate,jdbcType=TIMESTAMP}, #{age,jdbcType=INTEGER}, #{tel,jdbcType=VARCHAR}, 
+      #{isDefault,jdbcType=INTEGER}, #{addUid,jdbcType=INTEGER}, #{addUname,jdbcType=VARCHAR}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{updateUid,jdbcType=INTEGER}, #{updateUname,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuniu.ord.domain.OrdPeopleTourist" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ord_people_tourist
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sellOrderId != null" >
+        sell_order_id,
+      </if>
+      <if test="fabContactId != null" >
+        fab_contact_id,
+      </if>
+      <if test="fabContactName != null" >
+        fab_contact_name,
+      </if>
+      <if test="touristType != null" >
+        tourist_type,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="firstname != null" >
+        firstname,
+      </if>
+      <if test="lastname != null" >
+        lastname,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="psptType != null" >
+        pspt_type,
+      </if>
+      <if test="psptId != null" >
+        pspt_id,
+      </if>
+      <if test="psptEndDate != null" >
+        pspt_end_date,
+      </if>
+      <if test="birthOfDate != null" >
+        birth_of_date,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="isDefault != null" >
+        is_default,
+      </if>
+      <if test="addUid != null" >
+        add_uid,
+      </if>
+      <if test="addUname != null" >
+        add_uname,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateUid != null" >
+        update_uid,
+      </if>
+      <if test="updateUname != null" >
+        update_uname,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sellOrderId != null" >
+        #{sellOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="fabContactId != null" >
+        #{fabContactId,jdbcType=VARCHAR},
+      </if>
+      <if test="fabContactName != null" >
+        #{fabContactName,jdbcType=VARCHAR},
+      </if>
+      <if test="touristType != null" >
+        #{touristType,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="firstname != null" >
+        #{firstname,jdbcType=VARCHAR},
+      </if>
+      <if test="lastname != null" >
+        #{lastname,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="psptType != null" >
+        #{psptType,jdbcType=VARCHAR},
+      </if>
+      <if test="psptId != null" >
+        #{psptId,jdbcType=VARCHAR},
+      </if>
+      <if test="psptEndDate != null" >
+        #{psptEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="birthOfDate != null" >
+        #{birthOfDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null" >
+        #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="addUid != null" >
+        #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuniu.ord.domain.OrdPeopleTourist" >
+    update ord_people_tourist
+    <set >
+      <if test="sellOrderId != null" >
+        sell_order_id = #{sellOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="fabContactId != null" >
+        fab_contact_id = #{fabContactId,jdbcType=VARCHAR},
+      </if>
+      <if test="fabContactName != null" >
+        fab_contact_name = #{fabContactName,jdbcType=VARCHAR},
+      </if>
+      <if test="touristType != null" >
+        tourist_type = #{touristType,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="firstname != null" >
+        firstname = #{firstname,jdbcType=VARCHAR},
+      </if>
+      <if test="lastname != null" >
+        lastname = #{lastname,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="psptType != null" >
+        pspt_type = #{psptType,jdbcType=VARCHAR},
+      </if>
+      <if test="psptId != null" >
+        pspt_id = #{psptId,jdbcType=VARCHAR},
+      </if>
+      <if test="psptEndDate != null" >
+        pspt_end_date = #{psptEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="birthOfDate != null" >
+        birth_of_date = #{birthOfDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null" >
+        is_default = #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="addUid != null" >
+        add_uid = #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        add_uname = #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        update_uid = #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        update_uname = #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuniu.ord.domain.OrdPeopleTourist" >
+    update ord_people_tourist
+    set sell_order_id = #{sellOrderId,jdbcType=INTEGER},
+      fab_contact_id = #{fabContactId,jdbcType=VARCHAR},
+      fab_contact_name = #{fabContactName,jdbcType=VARCHAR},
+      tourist_type = #{touristType,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      firstname = #{firstname,jdbcType=VARCHAR},
+      lastname = #{lastname,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      pspt_type = #{psptType,jdbcType=VARCHAR},
+      pspt_id = #{psptId,jdbcType=VARCHAR},
+      pspt_end_date = #{psptEndDate,jdbcType=TIMESTAMP},
+      birth_of_date = #{birthOfDate,jdbcType=TIMESTAMP},
+      age = #{age,jdbcType=INTEGER},
+      tel = #{tel,jdbcType=VARCHAR},
+      is_default = #{isDefault,jdbcType=INTEGER},
+      add_uid = #{addUid,jdbcType=INTEGER},
+      add_uname = #{addUname,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_uid = #{updateUid,jdbcType=INTEGER},
+      update_uname = #{updateUname,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

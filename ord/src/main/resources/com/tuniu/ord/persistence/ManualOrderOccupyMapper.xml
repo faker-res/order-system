@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuniu.ord.persistence.ManualOrderOccupyMapper" >
+  <resultMap id="BaseResultMap" type="com.tuniu.ord.domain.ManualOrderOccupy" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="manual_order_id" property="manualOrderId" jdbcType="INTEGER" />
+    <result column="d_order_id" property="dOrderId" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="adult_num" property="adultNum" jdbcType="INTEGER" />
+    <result column="child_num" property="childNum" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="add_uid" property="addUid" jdbcType="INTEGER" />
+    <result column="add_uname" property="addUname" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_uid" property="updateUid" jdbcType="INTEGER" />
+    <result column="update_uname" property="updateUname" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="del_flag" property="delFlag" jdbcType="TINYINT" />
+  </resultMap>
+  
+  <resultMap id="OccupyPriceMap" type="com.tuniu.ord.domain.ManualOrderOccupyNum" >
+    <result column="d_order_id" property="dOrderId" jdbcType="INTEGER" />
+    <result column="adult_num" property="adultNum" jdbcType="INTEGER" />
+    <result column="child_num" property="childNum" jdbcType="INTEGER" />
+    <result column="adult_price" property="adultPrice" jdbcType="DECIMAL" />
+    <result column="child_price" property="childPrice" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, manual_order_id, d_order_id, number, adult_num, child_num, status, add_uid, add_uname, add_time, update_uid, update_uname, 
+    update_time, del_flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from manual_order_occupy
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from manual_order_occupy
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertSelective" parameterType="com.tuniu.ord.domain.ManualOrderOccupy" useGeneratedKeys="true" keyProperty="id" >
+    insert into manual_order_occupy
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="manualOrderId != null" >
+        manual_order_id,
+      </if>
+      <if test="dOrderId != null" >
+        d_order_id,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="adultNum != null" >
+        adult_num,
+      </if>
+      <if test="childNum != null" >
+        child_num,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="addUid != null" >
+        add_uid,
+      </if>
+      <if test="addUname != null" >
+        add_uname,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateUid != null" >
+        update_uid,
+      </if>
+      <if test="updateUname != null" >
+        update_uname,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="manualOrderId != null" >
+        #{manualOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="dOrderId != null" >
+        #{dOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="adultNum != null" >
+        #{adultNum,jdbcType=INTEGER},
+      </if>
+      <if test="childNum != null" >
+        #{childNum,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="addUid != null" >
+        #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuniu.ord.domain.ManualOrderOccupy" >
+    update manual_order_occupy
+    <set >
+      <if test="manualOrderId != null" >
+        manual_order_id = #{manualOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="dOrderId != null" >
+        d_order_id = #{dOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="adultNum != null" >
+        adult_num = #{adultNum,jdbcType=INTEGER},
+      </if>
+      <if test="childNum != null" >
+        child_num = #{childNum,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="addUid != null" >
+        add_uid = #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        add_uname = #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        update_uid = #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        update_uname = #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <select id="queryInfoByManualOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select <include refid="Base_Column_List" />
+    from manual_order_occupy
+    where manual_order_id = #{manualOrderId} and status in (1,2,3,4) and del_flag = 0
+  </select>
+  
+  <select id="queryOccupySuccessByManualOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select <include refid="Base_Column_List" />
+    from manual_order_occupy
+    where manual_order_id = #{manualOrderId} and status in (2,3,4) and del_flag = 0
+  </select>
+  
+  <select id="queryOccupyCount" resultType="int">
+  	SELECT COUNT(*) FROM manual_order_occupy 
+  	WHERE d_order_id = #{dOrderId}  AND del_flag = 0 
+  </select>
+  
+  <select id="queryOccupyPriceList" resultMap="OccupyPriceMap">
+  	SELECT
+	  a.d_order_id,
+	  b.adult_price,
+	  b.child_price,
+	  SUM(a.adult_num) AS adult_num,
+	  SUM(a.child_num) AS child_num
+	FROM manual_order_occupy a
+	  JOIN ord_deal_order b
+	    ON a.manual_order_id = #{manualOrderId}
+	      AND a.STATUS in (2,3)
+	      AND b.order_id = a.d_order_id
+	      AND a.del_flag = 0
+	      AND b.del_flag = 0
+	GROUP BY a.d_order_id,b.adult_price,b.child_price
+  </select>
+</mapper>

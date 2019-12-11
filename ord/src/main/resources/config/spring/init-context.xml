@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="systemParamInit" class="com.tuniu.ord.core.init.SystemInitParameter">
+		<property name="mailHost" value="@{mailHost}" />
+		<property name="mailRobot" value="@{mailRobot}" />
+		<property name="mailUserName" value="@{mailUserName}" />
+		<property name="mailPassword" value="@{mailPassword}" />
+		<property name="mailProtocol" value="@{mailProtocol}" />
+		<property name="mailPort" value="@{mailPort}" />
+		<property name="mailTimeout" value="@{mailTimeout}" />
+		<property name="level" value="@{level}" />
+		<property name="logFilePath" value="@{logFilePath}" />
+		<property name="logConfigPath" value="@{logConfigPath}" />
+		<property name="checkRespToAPI" value="@{checkRespToAPI}" />
+		<property name="appSecretForAPI" value="@{appSecretForAPI}" />
+		<property name="queryPrdInfo" value="@{queryPrdInfo}" />
+		<property name="confirmFeedBackURL" value="@{confirmFeedBackURL}" />
+		<property name="sendSalesConfirm" value="@{sendSalesConfirm}" />
+		<property name="applyLossInfo" value="@{applyLossInfo}" />
+		<property name="getUpgrade" value="@{getUpgrade}" />
+		<property name="getProductInfoToOrd" value="@{getProductInfoToOrd}"></property>
+		<property name="envFlag" value="@{envFlag}"></property>
+		<property name="getProductCombinationInfo" value="@{getProductCombinationInfo}"></property>
+		<property name="getOrderTourInfo" value="@{getOrderTourInfo}"></property>
+		<property name="newInitiateConfirmAddress" value="@{newInitiateConfirmAddress}"></property>
+		<property name="stepId" value="@{stepId}"></property>
+		<property name="doCheckLossException" value="@{doCheckLossException}"></property>
+		<property name="doCheckLossPage" value="@{doCheckLossPage}"></property>
+		<property name="productResAddress" value="@{productResAddress}" />
+		<property name="queryMemberByFullName" value="@{queryMemberByFullName}" />
+		<property name="queryMemberContacts" value="@{queryMemberContacts}" />
+		<property name="queryManualProductInfo" value="@{queryManualProductInfo}" />
+		<property name="queryGroupBaseUrl" value="@{queryGroupBaseUrl}" />
+		<property name="queryProductInfo" value="@{queryProductInfo}" />
+		<property name="queryMemberById" value="@{queryMemberById}" />
+		<property name="queryProByResId" value="@{queryProByResId}" />
+		<property name="queryProByProId" value="@{queryProByProId}" />
+		<property name="queryTour" value="@{queryTour}" />
+
+
+	</bean>
+
+</beans>

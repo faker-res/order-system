@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tuniu.ord.persistence.OrdChannelOrderMapper">
+
+  <resultMap id="BaseResultMap" type="com.tuniu.ord.domain.OrdChannelOrder">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="channel_order_id" jdbcType="INTEGER" property="channelOrderId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="original_param" jdbcType="LONGVARCHAR" property="originalParam" />
+    <result column="operator_type" jdbcType="INTEGER" property="operatorType" />
+    <result column="add_uid" jdbcType="INTEGER" property="addUid" />
+    <result column="add_uname" jdbcType="VARCHAR" property="addUname" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_uid" jdbcType="INTEGER" property="updateUid" />
+    <result column="update_uname" jdbcType="VARCHAR" property="updateUname" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="del_flag" jdbcType="INTEGER" property="delFlag" />
+    <result column="before_change_tourist" jdbcType="LONGVARCHAR" property="beforeChangeTourist" />
+    <result column="after_change_tourist" jdbcType="LONGVARCHAR" property="afterChangeTourist" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, channel_order_id, status, original_param, before_change_tourist, after_change_tourist, operator_type, add_uid, add_uname, add_time, update_uid, 
+    update_uname, update_time, del_flag
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ord_channel_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <!--外部订单查询数量  -->
+  <select id="getChannelOrderNum" resultType="java.lang.Integer" parameterType="com.tuniu.ord.vo.channelorder.ChannelOrderQueryInputVo">
+     SELECT COUNT(*)
+     FROM ord_channel_order
+     WHERE del_flag=0
+     <if test="channelOrderId!=null">
+       AND channel_order_id=#{channelOrderId}
+     </if>
+     <if test="status!=null">
+        AND STATUS=#{status}
+     </if>
+     <if test="operatorType!=null">
+       AND operator_type=#{operatorType}
+     </if>
+  </select>
+  
+  <!-- 外部订单列表 -->
+  <select id="getChannelOrderList" parameterType="com.tuniu.ord.vo.channelorder.ChannelOrderQueryInputVo" resultMap="BaseResultMap">
+     SELECT <include refid="Base_Column_List"/>
+     FROM ord_channel_order
+     WHERE del_flag=0
+     <if test="channelOrderId!=null">
+       AND channel_order_id=#{channelOrderId}
+     </if>
+     <if test="status!=null">
+        AND STATUS=#{status}
+     </if>
+     <if test="operatorType!=null">
+       AND operator_type=#{operatorType}
+     </if>
+      order by id 
+      limit #{start},#{limit}
+  </select>
+  
+  <insert id="insertSelective" parameterType="com.tuniu.ord.domain.OrdChannelOrder">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ord_channel_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="channelOrderId != null">
+        channel_order_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="operatorType != null">
+        operator_type,
+      </if>
+      <if test="addUid != null">
+        add_uid,
+      </if>
+      <if test="addUname != null">
+        add_uname,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="updateUid != null">
+        update_uid,
+      </if>
+      <if test="updateUname != null">
+        update_uname,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="originalParam != null">
+        original_param,
+      </if>
+      <if test="beforeChangeTourist != null">
+        before_change_tourist,
+      </if>
+      <if test="afterChangeTourist != null">
+        after_change_tourist,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="channelOrderId != null">
+        #{channelOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="operatorType != null">
+        #{operatorType,jdbcType=INTEGER},
+      </if>
+      <if test="addUid != null">
+        #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null">
+        #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null">
+        #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null">
+        #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="originalParam != null">
+        #{originalParam,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="beforeChangeTourist != null">
+        #{beforeChangeTourist,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="afterChangeTourist != null">
+        #{afterChangeTourist,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuniu.ord.domain.OrdChannelOrder">
+    update ord_channel_order
+    <set>
+      <if test="channelOrderId != null">
+        channel_order_id = #{channelOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="operatorType != null">
+        operator_type = #{operatorType,jdbcType=INTEGER},
+      </if>
+      <if test="addUid != null">
+        add_uid = #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null">
+        add_uname = #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null">
+        update_uid = #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null">
+        update_uname = #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="originalParam != null">
+        original_param = #{originalParam,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="beforeChangeTourist != null">
+        before_change_tourist = #{beforeChangeTourist,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="afterChangeTourist != null">
+        after_change_tourist = #{afterChangeTourist,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+ 
+</mapper>

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuniu.ord.persistence.OrdPriceDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.tuniu.ord.domain.OrdPriceDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="stock_adult_count" property="stockAdultCount" jdbcType="INTEGER" />
+    <result column="stock_child_count" property="stockChildCount" jdbcType="INTEGER" />
+    <result column="adult_price" property="adultPrice" jdbcType="DECIMAL" />
+    <result column="child_price" property="childPrice" jdbcType="DECIMAL" />
+    <result column="confirmed_adult_count" property="confirmedAdultCount" jdbcType="INTEGER" />
+    <result column="confirmed_child_count" property="confirmedChildCount" jdbcType="INTEGER" />
+    <result column="loss_adult_count" property="lossAdultCount" jdbcType="INTEGER" />
+    <result column="loss_child_count" property="lossChildCount" jdbcType="INTEGER" />
+    <result column="add_uid" property="addUid" jdbcType="INTEGER" />
+    <result column="add_uname" property="addUname" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_uid" property="updateUid" jdbcType="INTEGER" />
+    <result column="update_uname" property="updateUname" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="del_flag" property="delFlag" jdbcType="INTEGER" />
+    <result column="currency_type" property="currencyType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_id, stock_adult_count, stock_child_count, adult_price, child_price, confirmed_adult_count, 
+    confirmed_child_count, loss_adult_count, loss_child_count, add_uid, add_uname, add_time, 
+    update_uid, update_uname, update_time, del_flag, currency_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ord_price_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ord_price_detail
+    where order_id = #{orderId,jdbcType=INTEGER} and del_flag = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ord_price_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tuniu.ord.domain.OrdPriceDetail" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ord_price_detail (order_id, stock_adult_count, stock_child_count, 
+      adult_price, child_price, confirmed_adult_count, 
+      confirmed_child_count, loss_adult_count, loss_child_count, 
+      add_uid, add_uname, add_time, 
+      update_uid, update_uname, update_time, 
+      del_flag, currency_type)
+    values (#{orderId,jdbcType=INTEGER}, #{stockAdultCount,jdbcType=INTEGER}, #{stockChildCount,jdbcType=INTEGER}, 
+      #{adultPrice,jdbcType=DECIMAL}, #{childPrice,jdbcType=DECIMAL}, #{confirmedAdultCount,jdbcType=INTEGER}, 
+      #{confirmedChildCount,jdbcType=INTEGER}, #{lossAdultCount,jdbcType=INTEGER}, #{lossChildCount,jdbcType=INTEGER}, 
+      #{addUid,jdbcType=INTEGER}, #{addUname,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{updateUid,jdbcType=INTEGER}, #{updateUname,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{delFlag,jdbcType=INTEGER}, #{currencyType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuniu.ord.domain.OrdPriceDetail" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ord_price_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="stockAdultCount != null" >
+        stock_adult_count,
+      </if>
+      <if test="stockChildCount != null" >
+        stock_child_count,
+      </if>
+      <if test="adultPrice != null" >
+        adult_price,
+      </if>
+      <if test="childPrice != null" >
+        child_price,
+      </if>
+      <if test="confirmedAdultCount != null" >
+        confirmed_adult_count,
+      </if>
+      <if test="confirmedChildCount != null" >
+        confirmed_child_count,
+      </if>
+      <if test="lossAdultCount != null" >
+        loss_adult_count,
+      </if>
+      <if test="lossChildCount != null" >
+        loss_child_count,
+      </if>
+      <if test="addUid != null" >
+        add_uid,
+      </if>
+      <if test="addUname != null" >
+        add_uname,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateUid != null" >
+        update_uid,
+      </if>
+      <if test="updateUname != null" >
+        update_uname,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="currencyType != null" >
+        currency_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="stockAdultCount != null" >
+        #{stockAdultCount,jdbcType=INTEGER},
+      </if>
+      <if test="stockChildCount != null" >
+        #{stockChildCount,jdbcType=INTEGER},
+      </if>
+      <if test="adultPrice != null" >
+        #{adultPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="childPrice != null" >
+        #{childPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="confirmedAdultCount != null" >
+        #{confirmedAdultCount,jdbcType=INTEGER},
+      </if>
+      <if test="confirmedChildCount != null" >
+        #{confirmedChildCount,jdbcType=INTEGER},
+      </if>
+      <if test="lossAdultCount != null" >
+        #{lossAdultCount,jdbcType=INTEGER},
+      </if>
+      <if test="lossChildCount != null" >
+        #{lossChildCount,jdbcType=INTEGER},
+      </if>
+      <if test="addUid != null" >
+        #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="currencyType != null" >
+        #{currencyType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuniu.ord.domain.OrdPriceDetail" >
+    update ord_price_detail
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="stockAdultCount != null" >
+        stock_adult_count = #{stockAdultCount,jdbcType=INTEGER},
+      </if>
+      <if test="stockChildCount != null" >
+        stock_child_count = #{stockChildCount,jdbcType=INTEGER},
+      </if>
+      <if test="adultPrice != null" >
+        adult_price = #{adultPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="childPrice != null" >
+        child_price = #{childPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="confirmedAdultCount != null" >
+        confirmed_adult_count = #{confirmedAdultCount,jdbcType=INTEGER},
+      </if>
+      <if test="confirmedChildCount != null" >
+        confirmed_child_count = #{confirmedChildCount,jdbcType=INTEGER},
+      </if>
+      <if test="lossAdultCount != null" >
+        loss_adult_count = #{lossAdultCount,jdbcType=INTEGER},
+      </if>
+      <if test="lossChildCount != null" >
+        loss_child_count = #{lossChildCount,jdbcType=INTEGER},
+      </if>
+      <if test="addUid != null" >
+        add_uid = #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        add_uname = #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        update_uid = #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        update_uname = #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="currencyType != null" >
+        currency_type = #{currencyType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuniu.ord.domain.OrdPriceDetail" >
+    update ord_price_detail
+    set order_id = #{orderId,jdbcType=INTEGER},
+      stock_adult_count = #{stockAdultCount,jdbcType=INTEGER},
+      stock_child_count = #{stockChildCount,jdbcType=INTEGER},
+      adult_price = #{adultPrice,jdbcType=DECIMAL},
+      child_price = #{childPrice,jdbcType=DECIMAL},
+      confirmed_adult_count = #{confirmedAdultCount,jdbcType=INTEGER},
+      confirmed_child_count = #{confirmedChildCount,jdbcType=INTEGER},
+      loss_adult_count = #{lossAdultCount,jdbcType=INTEGER},
+      loss_child_count = #{lossChildCount,jdbcType=INTEGER},
+      add_uid = #{addUid,jdbcType=INTEGER},
+      add_uname = #{addUname,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      update_uid = #{updateUid,jdbcType=INTEGER},
+      update_uname = #{updateUname,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=INTEGER},
+      currency_type = #{currencyType,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!--  修改价格表的确认成人数或者核损成人数 -->
+  <update id="updateOrderDetail" parameterType="com.tuniu.ord.vo.DetailVo">
+     UPDATE ord_price_detail
+    <set >
+      <if test="confirmedAdultCount != null" >
+        confirmed_adult_count = confirmed_adult_count+#{confirmedAdultCount,jdbcType=INTEGER},
+      </if>
+      <if test="lossAdultCount != null" >
+        loss_adult_count = loss_adult_count+#{lossAdultCount,jdbcType=INTEGER},
+      </if>
+    </set>
+     WHERE order_id=#{orderId,jdbcType=INTEGER} AND del_flag=0;
+  </update>
+  
+</mapper>

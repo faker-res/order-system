@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuniu.ord.persistence.CheckLossTouristMapper">
+  <resultMap id="BaseResultMap" type="com.tuniu.ord.domain.CheckLossTourist">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="check_loss_id" property="checkLossId" jdbcType="INTEGER" />
+    <result column="ord_people_tourist_id" property="ordPeopleTouristId" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="add_uid" property="addUid" jdbcType="INTEGER" />
+    <result column="add_uname" property="addUname" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="update_uid" property="updateUid" jdbcType="INTEGER" />
+    <result column="update_uname" property="updateUname" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="INTEGER" />
+  </resultMap>
+
+  <resultMap type="com.tuniu.ord.vo.CheckLossTouristVo" id="CheckLosstourist">
+    <result column="check_loss_id" property="checkLossId" jdbcType="INTEGER" />
+    <result column="round_id" property="roundId" jdbcType="INTEGER" />
+    <result column="branch_id" property="branchId" jdbcType="INTEGER" />
+    <result column="tourist_name" property="touristName" jdbcType="VARCHAR" />
+    <result column="pspt_id" property="psptId" jdbcType="VARCHAR" />
+    <result column="tourist_id" property="touristId" jdbcType="VARCHAR" />
+    <result column="people_tourist_id" property="peopleTouristId" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap type="com.tuniu.ord.vo.SalesInfoWhenCheckLossVo" id="checkLossInfo">
+  	<result column="deal_order_id" property="dealOrderId" jdbcType="INTEGER" />
+    <result column="people_tourist_id" property="peopleTouristId" jdbcType="INTEGER" />
+    <result column="tourist_id" property="touristId" jdbcType="INTEGER" />
+    <result column="tourist_type" property="touristType" jdbcType="INTEGER" />
+    <result column="adult_price" property="adultPrice" jdbcType="DECIMAL" />
+    <result column="child_price" property="childPrice" jdbcType="DECIMAL" />
+    <result column="deal_order_type" property="dealOrderType" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, check_loss_id, ord_people_tourist_id, add_time, add_uid, add_uname, update_time,
+    update_uid,
+    update_uname, del_flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List" />
+    from check_loss_tourist
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from check_loss_tourist
+    where id =
+    #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tuniu.ord.domain.CheckLossTourist">
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into check_loss_tourist (check_loss_id, ord_people_tourist_id, add_time, add_uid,
+    add_uname, update_time, update_uid,
+    update_uname, del_flag)
+    values (#{checkLossId,jdbcType=INTEGER}, #{ordPeopleTouristId,jdbcType=INTEGER},#{addTime,jdbcType=TIMESTAMP},
+    #{addUid,jdbcType=INTEGER},
+    #{addUname,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUid,jdbcType=INTEGER},
+    #{updateUname,jdbcType=VARCHAR}, #{delFlag,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuniu.ord.domain.CheckLossTourist">
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into check_loss_tourist
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="checkLossId != null">
+        check_loss_id,
+      </if>
+      <if test="ordPeopleTouristId != null">
+        ord_people_tourist_id,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="addUid != null">
+        add_uid,
+      </if>
+      <if test="addUname != null">
+        add_uname,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUid != null">
+        update_uid,
+      </if>
+      <if test="updateUname != null">
+        update_uname,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="checkLossId != null">
+        #{checkLossId,jdbcType=INTEGER},
+      </if>
+      <if test="ordPeopleTouristId != null">
+        #{ordPeopleTouristId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addUid != null">
+        #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null">
+        #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null">
+        #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null">
+        #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuniu.ord.domain.CheckLossTourist">
+    update check_loss_tourist
+    <set>
+      <if test="checkLossId != null">
+        check_loss_id = #{checkLossId,jdbcType=INTEGER},
+      </if>
+      <if test="ordPeopleTouristId != null">
+        ord_people_tourist_id = #{ordPeopleTouristId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addUid != null">
+        add_uid = #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null">
+        add_uname = #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null">
+        update_uid = #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null">
+        update_uname = #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuniu.ord.domain.CheckLossTourist">
+    update check_loss_tourist
+    set
+    check_loss_id = #{checkLossId,jdbcType=INTEGER},
+    ord_people_tourist_id = #{ordPeopleTouristId,jdbcType=INTEGER},
+    add_time = #{addTime,jdbcType=TIMESTAMP},
+    add_uid = #{addUid,jdbcType=INTEGER},
+    add_uname = #{addUname,jdbcType=VARCHAR},
+    update_time = #{updateTime,jdbcType=TIMESTAMP},
+    update_uid = #{updateUid,jdbcType=INTEGER},
+    update_uname = #{updateUname,jdbcType=VARCHAR},
+    del_flag = #{delFlag,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectCheckLossTouristByCheckLossIdAndPsptId" resultMap="CheckLosstourist">
+    select ss.check_loss_id,ss.batch_number round_id,ss.order_id branch_id,opt.`name` tourist_name,opt.pspt_id,opt.id
+    people_tourist_id
+    from (select cl.id check_loss_id,cl.requirement_id,cl.sell_order_id,
+    odo.order_id order_id ,odo.occupy_batch_id,cld.batch_number,odo.ext_batch_id
+    from check_loss_detail cld, ord_deal_order odo,check_loss cl
+    where cl.del_flag=0
+    <if test="checkLossId>0">
+      and cl.id=#{checkLossId} and cl.id=cld.check_loss_id and cld.deal_order_id=odo.order_id) ss,ord_sales_order
+      oso,ord_people_tourist opt,check_loss_tourist clt
+      where opt.del_flag=0 and ss.sell_order_id = oso.ext_order_id and ss.order_id=oso.order_id and oso.id = opt.sell_order_id and
+      clt.ord_people_tourist_id = opt.id and clt.check_loss_id = ss.check_loss_id
+    </if>
+    <if test="touristId != null and touristId !=''"> and opt.fab_contact_id=#{touristId}</if>
+  </select>
+
+  <select id="selectByCheckLossIdAndPsptId" resultMap="CheckLosstourist">
+    select ss.check_loss_id,ss.batch_number round_id,ss.occupy_batch_id branch_id,opt.`name` tourist_name,opt.pspt_id,opt.id
+    people_tourist_id
+    from (select cl.id check_loss_id,cl.requirement_id,cl.sell_order_id,
+    odo.order_id order_id ,odo.occupy_batch_id,cld.batch_number,odo.ext_batch_id
+    from check_loss_detail cld, ord_deal_order odo,check_loss cl
+    where cl.del_flag=0
+    <if test="checkLossId>0">
+      and cl.id=#{checkLossId} and cl.id=cld.check_loss_id and cld.deal_order_id=odo.order_id) ss,ord_sales_order
+      oso,ord_people_tourist opt
+      where opt.del_flag=0 and ss.sell_order_id = oso.ext_order_id and ss.order_id=oso.order_id and oso.id = opt.sell_order_id and
+      ss.requirement_id = oso.requirement_id
+    </if>
+    <if test="touristId != null and touristId != ''"> and opt.fab_contact_id=#{touristId}</if>
+  </select>
+
+  <select id="selectAllTouristByCheckLossId" resultMap="CheckLosstourist">
+    select ss.check_loss_id,ss.batch_number round_id,ss.occupy_batch_id branch_id,opt.`name` tourist_name,opt.pspt_id,opt.id
+    tourist_id
+    from (select cl.id check_loss_id,cl.requirement_id,cl.sell_order_id,
+    odo.order_id order_id ,odo.occupy_batch_id,cld.batch_number,odo.ext_batch_id
+    from check_loss_detail cld, ord_deal_order odo,check_loss cl
+    where cl.del_flag=0
+    <if test="checkLossId>0">
+      and cl.id=#{checkLossId} and cl.id=cld.check_loss_id and cld.deal_order_id=odo.order_id) ss,ord_sales_order
+      oso,ord_people_tourist opt
+      where opt.del_flag=0 and ss.sell_order_id = oso.ext_order_id and ss.order_id=oso.order_id and oso.id = opt.sell_order_id and
+      oso.requirement_id = ss.requirement_id
+    </if>
+  </select>
+
+  <!--根据核损单号获取核损出游人列表 -->
+  <select id="getLossTouristList"  resultMap="BaseResultMap" parameterType="com.tuniu.ord.vo.CheckLossTouristVo">
+       select  <include refid="Base_Column_List" />
+       from check_loss_tourist 
+       where check_loss_id=#{checkLossId,jdbcType=INTEGER} and del_flag=0 order by id;
+  </select>
+
+  <select id="querySalesByCheckLossInfo" resultMap="checkLossInfo">
+	SELECT
+	  c.order_id       AS deal_order_id,
+	  a.id             AS people_tourist_id,
+	  a.fab_contact_id AS tourist_id,
+	  a.tourist_type,
+	  d.adult_price,
+	  d.child_price,
+	  c.deal_order_type
+	FROM ord_people_tourist a
+	  JOIN ord_sales_order b
+	    ON a.sell_order_id = b.id
+	      AND b.ext_order_id = #{tuniuOrderId}
+	      AND b.requirement_id = #{requirementId}
+	      AND a.fab_contact_id in
+	   	  <foreach collection="touristIds" item="touristId" open="(" close=")" separator=",">
+        	#{touristId}
+    	  </foreach>
+	  JOIN ord_deal_order c
+	    ON b.order_id = c.order_id
+	  JOIN ord_price_detail d
+    	ON d.order_id = c.order_id
+  </select>
+
+</mapper>

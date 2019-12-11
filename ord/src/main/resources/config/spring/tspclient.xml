@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd 
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd 
+    http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-3.1.xsd ">
+
+	<!--  	用于获取Spring的ApplicationContex 不要修改  	-->
+	<bean class="com.tuniu.operation.platform.tsg.client.common.AppContext"></bean>
+	
+	<!--	监控中心配置 全局配置	-->
+    <bean id="monitor" class="com.tuniu.operation.platform.tsg.monitor.Monitor" lazy-init="false">
+        <property name="brokerURL" value="failover://(@{tsp.monitor})?randomize=false&amp;jms.useAsyncSend=true"></property>
+        <property name="queueName" value="queue.pla.tsp.monitor.log"></property>
+    </bean>
+    
+    <!--  	注册中心配置 全局配置	-->
+    <bean id="registerConfig" class="com.tuniu.operation.platform.tsg.client.config.RegisterConfig">
+        <property name="registryAddress" value="@{tsp.registerConfig}"></property>
+    </bean>
+    
+    <!--	提供者配置 应用自行修改	-->
+ 	<bean id="providerConfig" class="com.tuniu.operation.platform.tsg.client.config.ProviderConfig">
+       <property name="subSystem" value="DOTA"></property>
+       <property name="packageName" value="ord"></property>
+       <property name="maintainer" value="****"></property>
+       <property name="isScan" value="false"></property>
+       <property name="provideService">
+           <list>
+          </list>
+       </property>
+ 	</bean>
+ 	
+		<!--  消费者配置 应用自行修改 -->	
+   <bean id="consumerConfig" class="com.tuniu.operation.platform.tsg.client.config.ConsumerConfig" lazy-init="false">
+        <property name="refferenceService">
+            <list>
+                <!-- 途牛 -->
+                <value>STK.DOTA.StockProductController.productContractSign</value>
+                <value>STK.DOTA.StockProductController.productCancelContractSign</value>
+                <value>STK.DOTA.StockWholesaleCommonController.queryOccupyInfo</value>
+                <value>STK.DOTA.StockOutController.slaveQueryStockOutList</value>
+                <value>STK.DOTA.StockProductController.productOccupy</value>
+                <value>STK.DOTA.StockProductController.cancelProductOccupy</value>
+                <value>STK.DOTA.StockProductController.productOccupySynApply</value>
+                <!-- 五洲行 -->
+                <value>STK.WZX.StockProductController.productContractSign</value>
+                <value>STK.WZX.StockProductController.productCancelContractSign</value>
+                <value>STK.WZX.StockWholesaleCommonController.queryOccupyInfo</value>
+                <value>STK.WZX.StockOutController.slaveQueryStockOutList</value>
+                <value>STK.WZX.StockProductController.productOccupy</value>
+                <value>STK.WZX.StockProductController.cancelProductOccupy</value>
+                <value>STK.WZX.StockProductController.productOccupySynApply</value>
+                
+                <value>PLA.EMAIL.EdmController.sendInternalEmail</value>
+                <value>ICS.SCS.OrderController.synOrder</value>
+                <value>ICS.SCS.OrderController.updateOrder</value>
+                <value>POS.NM.OrderIdController.applyOrderIdInterval</value>
+                <value>POS.NM.OrderIdController.applyOrderId</value>
+                <value>DPS.relation.RelationController.queryRelationsId</value>
+            </list>
+        </property>
+    </bean>
+
+	<!--  TSP客户端配置 应用自行修改	-->
+ 	<bean id="tspCommonClient" class="com.tuniu.operation.platform.tsg.client.proxy.tsg.TSPCommonClient" destroy-method="stop">
+  	   <property name="consumerConfig" ref="consumerConfig"/>	
+       <property name="providerConfig" ref="providerConfig"></property>
+       <property name="registerConfig" ref="registerConfig"/>
+       <!--连接超时时间配置 应用可选配置，不配置将默认为2秒-->
+       <property name="connectTimeout" value="2"></property>
+       <!--Socket连接超时时间配置 应用可选配置，默认10s, 部分场景需要时间超过2s-->
+       <property name="socketTimeout" value="120"></property> 
+ 	</bean>
+  
+  <bean class="com.tuniu.ord.common.util.TspUtil" name="tspUtil">
+    <property name="tspCommonClient" ref="tspCommonClient"/>
+  </bean>
+</beans>

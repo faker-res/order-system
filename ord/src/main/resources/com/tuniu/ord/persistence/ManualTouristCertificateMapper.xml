@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuniu.ord.persistence.ManualTouristCertificateMapper" >
+  <resultMap id="BaseResultMap" type="com.tuniu.ord.domain.ManualTouristCertificate" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="tourist_id" property="touristId" jdbcType="INTEGER" />
+    <result column="pspt_type" property="psptType" jdbcType="TINYINT" />
+    <result column="pspt_id" property="psptId" jdbcType="VARCHAR" />
+    <result column="pspt_end_date" property="psptEndDate" jdbcType="TIMESTAMP" />
+    <result column="add_uid" property="addUid" jdbcType="INTEGER" />
+    <result column="add_uname" property="addUname" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_uid" property="updateUid" jdbcType="INTEGER" />
+    <result column="update_uname" property="updateUname" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="del_flag" property="delFlag" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, tourist_id, pspt_type, pspt_id, pspt_end_date, add_uid, add_uname, add_time, 
+    update_uid, update_uname, update_time, del_flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from manual_tourist_certificate
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByTouristId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from manual_tourist_certificate
+    where del_flag = 0
+        and tourist_id = #{touristId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from manual_tourist_certificate 
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByTouristId" parameterType="java.lang.Integer" >
+    delete from manual_tourist_certificate 
+    where tourist_id = #{touristId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertSelective" parameterType="com.tuniu.ord.domain.ManualTouristCertificate" useGeneratedKeys="true" keyProperty="id" >
+    insert into manual_tourist_certificate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="touristId != null" >
+        tourist_id,
+      </if>
+      <if test="psptType != null" >
+        pspt_type,
+      </if>
+      <if test="psptId != null" >
+        pspt_id,
+      </if>
+      <if test="psptEndDate != null" >
+        pspt_end_date,
+      </if>
+      <if test="addUid != null" >
+        add_uid,
+      </if>
+      <if test="addUname != null" >
+        add_uname,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateUid != null" >
+        update_uid,
+      </if>
+      <if test="updateUname != null" >
+        update_uname,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="touristId != null" >
+        #{touristId,jdbcType=INTEGER},
+      </if>
+      <if test="psptType != null" >
+        #{psptType,jdbcType=TINYINT},
+      </if>
+      <if test="psptId != null" >
+        #{psptId,jdbcType=VARCHAR},
+      </if>
+      <if test="psptEndDate != null" >
+        #{psptEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addUid != null" >
+        #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuniu.ord.domain.ManualTouristCertificate" >
+    update manual_tourist_certificate
+    <set >
+      <if test="touristId != null" >
+        tourist_id = #{touristId,jdbcType=INTEGER},
+      </if>
+      <if test="psptType != null" >
+        pspt_type = #{psptType,jdbcType=TINYINT},
+      </if>
+      <if test="psptId != null" >
+        pspt_id = #{psptId,jdbcType=VARCHAR},
+      </if>
+      <if test="psptEndDate != null" >
+        pspt_end_date = #{psptEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addUid != null" >
+        add_uid = #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        add_uname = #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        update_uid = #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        update_uname = #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <insert id="batchInsert" parameterType="com.tuniu.ord.domain.ManualTouristCertificate" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">  
+        SELECT  
+        LAST_INSERT_ID()  
+    </selectKey>  
+    insert into manual_tourist_certificate (tourist_id, pspt_type, 
+      pspt_id, pspt_end_date, add_uid, 
+      add_uname, add_time, update_uid, 
+      update_uname, update_time, del_flag
+      )
+    values 
+    <foreach collection="records" item="item" index="index" separator="," >  
+      (#{item.touristId,jdbcType=INTEGER}, #{item.psptType,jdbcType=TINYINT}, 
+      #{item.psptId,jdbcType=VARCHAR}, #{item.psptEndDate,jdbcType=TIMESTAMP}, #{item.addUid,jdbcType=INTEGER}, 
+      #{item.addUname,jdbcType=VARCHAR}, #{item.addTime,jdbcType=TIMESTAMP}, #{item.updateUid,jdbcType=INTEGER}, 
+      #{item.updateUname,jdbcType=VARCHAR}, #{item.updateTime,jdbcType=TIMESTAMP}, #{item.delFlag,jdbcType=TINYINT}
+      )
+    </foreach>
+  </insert>
+  
+  <update id="batchRemove">
+     UPDATE manual_tourist_certificate mtt SET mtt.del_flag = 1 
+     WHERE mtt.id in (
+         <foreach collection="records" item="item" index="index" separator=",">
+             #{item.id}
+         </foreach>
+     )
+  </update>
+</mapper>

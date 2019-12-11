@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuniu.ord.persistence.CheckLossMapper" >
+  <resultMap id="BaseResultMap" type="com.tuniu.ord.domain.CheckLoss" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sell_order_id" property="sellOrderId" jdbcType="INTEGER" />
+    <result column="requirement_id" property="requirementId" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="INTEGER" />
+    <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+    <result column="tour_date" property="tourDate" jdbcType="DATE" />
+    <result column="sell_channel" property="sellChannel" jdbcType="VARCHAR" />
+    <result column="channel_count" property="channelCount" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="resp_time" property="respTime" jdbcType="TIMESTAMP" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="add_uid" property="addUid" jdbcType="INTEGER" />
+    <result column="add_uname" property="addUname" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="update_uid" property="updateUid" jdbcType="INTEGER" />
+    <result column="update_uname" property="updateUname" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="INTEGER" />
+    <result column="api_key" property="apiKey" jdbcType="VARCHAR" />
+    <result column="timestamp" property="timestamp" jdbcType="VARCHAR" />
+    <result column="sign" property="sign" jdbcType="VARCHAR" />
+    <result column="session_id" property="sessionId" jdbcType="INTEGER" />
+    <result column="check_loss_type" property="checkLossType" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap type="com.tuniu.ord.vo.CheckLossInfoVo" id="ReqCheckLoss">
+  <result column="order_id" property="orderId" jdbcType="INTEGER" />
+  <result column="sell_order_id" property="sellOrderId" jdbcType="INTEGER" />
+  <result column="adult_count" property="adultCount" jdbcType="INTEGER" />
+  <result column="child_count" property="childCount" jdbcType="INTEGER" />
+  <result column="adult_price" property="adultPrice" jdbcType="DECIMAL" />
+  <result column="child_price" property="childPrice" jdbcType="DECIMAL" />
+  <result column="total_price" property="totalPrice" jdbcType="DECIMAL" />
+  <result column="product_id" property="productId" jdbcType="INTEGER" />
+  <result column="product_name" property="productName" jdbcType="VARCHAR" />
+  <result column="group_id" property="groupId" jdbcType="INTEGER" />
+  <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+  <result column="tour_date" property="tourDate" jdbcType="DATE" />
+  <result column="user_id" property="userId" jdbcType="INTEGER" />
+  <result column="name" property="name" jdbcType="VARCHAR" />
+  <result column="sale_channel" property="saleChannel" jdbcType="VARCHAR" />
+  <result column="ext_batch_id" property="extBatchId" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, sell_order_id, requirement_id, product_id, product_name, group_id, group_name, 
+    tour_date, sell_channel, channel_count, user_id, name, status, resp_time, add_time, 
+    add_uid, add_uname, update_time, update_uid, update_uname, del_flag, api_key, timestamp, 
+    sign, session_id,check_loss_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from check_loss
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from check_loss
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tuniu.ord.domain.CheckLoss" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into check_loss (sell_order_id, requirement_id, product_id, 
+      product_name, group_id, group_name, 
+      tour_date, sell_channel, channel_count, 
+      user_id, name, status, 
+      resp_time, add_time, add_uid, 
+      add_uname, update_time, update_uid, 
+      update_uname, del_flag, api_key, 
+      timestamp, sign, session_id
+      )
+    values (#{sellOrderId,jdbcType=INTEGER}, #{requirementId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, 
+      #{productName,jdbcType=VARCHAR}, #{groupId,jdbcType=INTEGER}, #{groupName,jdbcType=VARCHAR}, 
+      #{tourDate,jdbcType=DATE}, #{sellChannel,jdbcType=VARCHAR}, #{channelCount,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{respTime,jdbcType=TIMESTAMP}, #{addTime,jdbcType=TIMESTAMP}, #{addUid,jdbcType=INTEGER}, 
+      #{addUname,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUid,jdbcType=INTEGER}, 
+      #{updateUname,jdbcType=VARCHAR}, #{delFlag,jdbcType=INTEGER}, #{apiKey,jdbcType=VARCHAR}, 
+      #{timestamp,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, #{sessionId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuniu.ord.domain.CheckLoss" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into check_loss
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sellOrderId != null" >
+        sell_order_id,
+      </if>
+      <if test="requirementId != null" >
+        requirement_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="groupName != null" >
+        group_name,
+      </if>
+      <if test="tourDate != null" >
+        tour_date,
+      </if>
+      <if test="sellChannel != null" >
+        sell_channel,
+      </if>
+      <if test="channelCount != null" >
+        channel_count,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="respTime != null" >
+        resp_time,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="addUid != null" >
+        add_uid,
+      </if>
+      <if test="addUname != null" >
+        add_uname,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="updateUid != null" >
+        update_uid,
+      </if>
+      <if test="updateUname != null" >
+        update_uname,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="apiKey != null" >
+        api_key,
+      </if>
+      <if test="timestamp != null" >
+        timestamp,
+      </if>
+      <if test="sign != null" >
+        sign,
+      </if>
+      <if test="sessionId != null" >
+        session_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sellOrderId != null" >
+        #{sellOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="requirementId != null" >
+        #{requirementId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null" >
+        #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="groupName != null" >
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="tourDate != null" >
+        #{tourDate,jdbcType=DATE},
+      </if>
+      <if test="sellChannel != null" >
+        #{sellChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="channelCount != null" >
+        #{channelCount,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="respTime != null" >
+        #{respTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addUid != null" >
+        #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="apiKey != null" >
+        #{apiKey,jdbcType=VARCHAR},
+      </if>
+      <if test="timestamp != null" >
+        #{timestamp,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null" >
+        #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        #{sessionId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuniu.ord.domain.CheckLoss" >
+    update check_loss
+    <set >
+      <if test="sellOrderId != null" >
+        sell_order_id = #{sellOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="requirementId != null" >
+        requirement_id = #{requirementId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null" >
+        group_id = #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="groupName != null" >
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="tourDate != null" >
+        tour_date = #{tourDate,jdbcType=DATE},
+      </if>
+      <if test="sellChannel != null" >
+        sell_channel = #{sellChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="channelCount != null" >
+        channel_count = #{channelCount,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="respTime != null" >
+        resp_time = #{respTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addUid != null" >
+        add_uid = #{addUid,jdbcType=INTEGER},
+      </if>
+      <if test="addUname != null" >
+        add_uname = #{addUname,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUid != null" >
+        update_uid = #{updateUid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUname != null" >
+        update_uname = #{updateUname,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="apiKey != null" >
+        api_key = #{apiKey,jdbcType=VARCHAR},
+      </if>
+      <if test="timestamp != null" >
+        timestamp = #{timestamp,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null" >
+        sign = #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        session_id = #{sessionId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuniu.ord.domain.CheckLoss" >
+    update check_loss
+    set sell_order_id = #{sellOrderId,jdbcType=INTEGER},
+      requirement_id = #{requirementId,jdbcType=INTEGER},
+      product_id = #{productId,jdbcType=INTEGER},
+      product_name = #{productName,jdbcType=VARCHAR},
+      group_id = #{groupId,jdbcType=INTEGER},
+      group_name = #{groupName,jdbcType=VARCHAR},
+      tour_date = #{tourDate,jdbcType=DATE},
+      sell_channel = #{sellChannel,jdbcType=VARCHAR},
+      channel_count = #{channelCount,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      resp_time = #{respTime,jdbcType=TIMESTAMP},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      add_uid = #{addUid,jdbcType=INTEGER},
+      add_uname = #{addUname,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_uid = #{updateUid,jdbcType=INTEGER},
+      update_uname = #{updateUname,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=INTEGER},
+      api_key = #{apiKey,jdbcType=VARCHAR},
+      timestamp = #{timestamp,jdbcType=VARCHAR},
+      sign = #{sign,jdbcType=VARCHAR},
+      session_id = #{sessionId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 条件批量查询 -->
+  <select id="selectCheckLossList" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List"/>
+  	from check_loss cl
+  	where cl.del_flag=0
+  	<choose>
+  		<when test="id>0">and cl.id like CONCAT('%',#{id},'%')</when>
+  		<otherwise>
+  			<if test="sellOrderId != null and sellOrderId>0">
+  			and cl.sell_order_id like CONCAT('%',#{sellOrderId},'%')
+  			</if>
+  			<if test="productId != null and productId>0">
+  			and cl.product_id like CONCAT('%',#{productId},'%')
+  			</if>
+  			<if test="userId != null and userId>0">
+  			and cl.user_id = #{userId}
+  			</if>
+  			<if test="sellChannel != '' and sellChannel != null">
+  			and cl.sell_channel like CONCAT('%',#{sellChannel},'%')
+  			</if>
+  			<if test="tourDate != '' and tourDate != null">
+  			and cl.tour_date like CONCAT('%',#{tourDate},'%')
+  			</if>
+  			<if test="status != null and status!=''">
+  			and cl.status = #{status}
+  			</if>
+  		</otherwise>
+  	</choose>
+  	order by cl.id desc
+  	limit #{start},#{limit}
+  </select>
+  
+  <!-- 查询条数 -->
+  <select id="count" resultType="java.lang.Integer">
+  	select count(1) 
+  	from check_loss cl
+  	where cl.del_flag=0
+  	<choose>
+  		<when test="id>0">and cl.id=#{id}</when>
+  		<otherwise>
+  			<if test="sellOrderId != null and sellOrderId>0">
+  			and cl.sell_order_id = #{sellOrderId}
+  			</if>
+  			<if test="productId != null and productId>0">
+  			and cl.product_id = #{productId}
+  			</if>
+  			<if test="userId != null and userId>0">
+  			and cl.user_id = #{userId}
+  			</if>
+  			<if test="sellChannel != '' and sellChannel != null">
+  			and cl.sell_channel = #{sellChannel}
+  			</if>
+  			<if test="tourDate != '' and tourDate != null">
+  			and cl.tour_date = #{tourDate}
+  			</if>
+  			<if test="status != null and status!=''">
+  			and cl.status = #{status}
+  			</if>
+  		</otherwise>
+  	</choose>
+  </select>
+  
+  <!-- 根据销售单号和途牛流水单号查询出核损需要的信息 -->
+  <select id="selectCheckLossByRequeirmentIdAndTuniuOrderId" resultMap="ReqCheckLoss">
+	  select distinct(oso.order_id),oso.id sell_order_id,oso.requirement_id,oso.sale_channel,oso.adult_count,oso.child_count,oso.adult_price,oso.child_price,oso.total_price,
+	  odo.product_id,odo.product_name,odo.group_id,odo.group_name,odo.depart_date tour_date,odo.product_staff_id user_id,odo.product_staff_name name,odo.ext_batch_id
+	  from 
+	  ord_sales_order oso,ord_deal_order odo
+	  where odo.del_flag=0
+	  <choose>
+	  	<when test="tuniuOrderId>0">and oso.ext_order_id = #{tuniuOrderId} and oso.requirement_id=#{requirementId} and oso.order_id=odo.order_id</when>
+	  </choose>
+  </select>
+  
+  <select id="queryInfoByCheckLoss" parameterType="com.tuniu.ord.domain.CheckLoss" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"/> from check_loss
+  	where 1=1
+  	<if test="sellOrderId != null"> and sell_order_id = #{sellOrderId}</if>
+  	<if test="requirementId != null"> and requirement_id = #{requirementId}</if>
+  </select>
+</mapper>
